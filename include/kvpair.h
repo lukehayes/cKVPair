@@ -4,13 +4,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "str.h"
 
 #define KV_BUFFER_SIZE 100
 
 typedef struct KVPair
 {
-    char* key;
-    char* value;
+    Str* key;
+    Str* value;
+
 
 } KVPair;
 
@@ -18,25 +20,18 @@ KVPair* ldh_KVPairCreate(char* key, char* value)
 {
     KVPair* p = malloc(sizeof(KVPair));
 
-    p->key = malloc(sizeof(char) * strlen(key) + 1);
-    p->value = malloc(sizeof(char) * strlen(value) + 1);
+    p->key   = ldh_StrCreate(key);
+    p->value = ldh_StrCreate(value);
 
-    strncpy(p->key, key, strlen(key) + 1);
-    strncpy(p->value, value, strlen(value) + 1);
-
-    p->key[strlen(key) + 1] = '\0';
-    p->value[strlen(value) + 1] = '\0';
-
-    printf("Key: %s, Value: %s \n", p->key, p->value);
-
+    printf("Key: %s, Value: %s \n", p->key->text, p->key->text);
 
     return p;
 }
 
 void ldh_KVPairDestroy(KVPair* pair)
 {
-    free(pair->key);
-    free(pair->value);
+    ldh_StrDestroy(pair->key);
+    ldh_StrDestroy(pair->value);
     free(pair);
 }
 
