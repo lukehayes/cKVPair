@@ -38,4 +38,5 @@ add_executable(${BIN_NAME} main.c)
 # 
 target_link_libraries(${BIN_NAME} ${cKVPairLib})
 target_link_libraries(${BIN_NAME} ${PROJECT_SOURCE_DIR}/lib/libCIO.a)
+target_link_libraries(${BIN_NAME} ${PROJECT_SOURCE_DIR}/lib/libcStr.a)
 
