@@ -23,8 +23,6 @@ KVPair* ldh_KVPairCreate(char* key, char* value)
     p->key   = ldh_StrCreate(key);
     p->value = ldh_StrCreate(value);
 
-    printf("Key: %s, Value: %s \n", p->key->text, p->key->text);
-
     return p;
 }
 
