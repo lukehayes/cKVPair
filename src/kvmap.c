@@ -18,6 +18,22 @@ void ldh_KVMapDestroy(KVMap* map)
     free(map);
 }
 
+bool ldh_KVMapInsert(KVMap* map, char* val)
+{
+    unsigned long hashIndex = ldh_Hash(val);
+    size_t hashMod = hashIndex % map->capacity;
+
+    if(map->list[hashMod] == NULL)
+    {
+        printf("Insert: str: %s hash:%lu mod:%lu \n", val, hashIndex, (hashIndex % map->capacity ));
+        map->list[hashMod] = val;
+        return true;
+    }else
+    {
+        printf("No insert possible as position %lu\n", hashMod);
+        return false;
+    }
+}
 unsigned long
 ldh_Hash(unsigned char *str)
 {

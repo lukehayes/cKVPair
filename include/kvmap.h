@@ -28,6 +28,15 @@ KVMap* ldh_KVMapCreate(size_t capacity);
  */
 void ldh_KVMapDestroy(KVMap* map);
 
+/**
+ * Insert a value into the map.
+ *
+ * @param KVMap* map         The map to be inserted into.
+ * @param const char* val    The value to be added.
+ *
+ * @return bool    True is value was inserted, false otherwise.
+ */
+bool ldh_KVMapInsert(KVMap* map, char* val);
 
 /**
  * A hashing function - all credit goes to: http://www.cse.yorku.ca/~oz/hash.html
