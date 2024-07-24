@@ -1,5 +1,6 @@
 #include "kvmap.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 KVMap* ldh_KVMapCreate(size_t capacity)
@@ -34,6 +35,22 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
         return false;
     }
 }
+
+void ldh_KVMapPrint(KVMap* map)
+{
+    for(int i = 0; i <= map->capacity - 1; i++)
+    {
+        if(map->list[i] == NULL)
+        {
+            printf(">| ...\n");
+        }else 
+        {
+            printf(">| %s\n", map->list[i]);
+        }
+
+    }
+}
+
 unsigned long
 ldh_Hash(unsigned char *str)
 {

@@ -39,6 +39,13 @@ void ldh_KVMapDestroy(KVMap* map);
 bool ldh_KVMapInsert(KVMap* map, char* val);
 
 /**
+ * Pretty print a KVMap.
+ *
+ * @param KVMap* map         The map to be printed.
+ */
+void ldh_KVMapPrint(KVMap* map);
+
+/**
  * A hashing function - all credit goes to: http://www.cse.yorku.ca/~oz/hash.html
  *
  * @param unsigned char* str    The string to be hash.
