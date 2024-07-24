@@ -27,11 +27,11 @@ add_executable(${BIN_NAME} main.c)
 # -----------------------------------------------------------------------------
 # Build the Toml Parser Library
 # 
-#set(cKVPairLib "cKVPair")
+set(cKVPairLib "cKVPair")
 
-#add_library(${cKVPairLib} STATIC
-  #"${SRC_DIR}/.c"
-#)
+add_library(${cKVPairLib} STATIC
+  "${SRC_DIR}/kvmap.c"
+)
 
 # -----------------------------------------------------------------------------
 # Link the libraries
