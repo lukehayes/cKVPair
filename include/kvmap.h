@@ -5,7 +5,8 @@
 
 typedef struct KVMap
 {
-    KVPair** list;
+    //KVPair** list;
+    char** list;
     size_t capacity;
     size_t size;
 } KVMap;
