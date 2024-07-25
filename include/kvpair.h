@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include "str.h"
 
 #define KV_BUFFER_SIZE 100
