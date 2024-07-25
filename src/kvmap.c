@@ -31,7 +31,7 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
         return true;
     }else
     {
-        printf("No insert possible as position %lu\n", hashMod);
+        printf("No insert possible for value \"%s\" at position %lu.\n", val, hashMod);
         return false;
     }
 }
@@ -47,7 +47,6 @@ void ldh_KVMapPrint(KVMap* map)
         {
             printf(">| %s\n", map->list[i]);
         }
-
     }
 }
 
