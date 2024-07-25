@@ -37,6 +37,9 @@ bool ldh_KVMapInsert(KVMap* map, char* value)
     printf("Val: %s \n", value);
     size_t hashMod = hashIndex % map->capacity;
 
+
+    // TODO Need to find a way to deal with collisions.
+
     if(map->list[hashMod] == NULL)
     {
         printf("Insert: str: %s hash:%lu mod:%lu \n", value, hashIndex, (hashIndex % map->capacity ));
