@@ -31,20 +31,21 @@ void ldh_KVMapDestroy(KVMap* map)
     free(map);
 }
 
-bool ldh_KVMapInsert(KVMap* map, char* val)
+bool ldh_KVMapInsert(KVMap* map, char* value)
 {
     long hashIndex = ldh_Hash(value);
+    printf("Val: %s \n", value);
     size_t hashMod = hashIndex % map->capacity;
 
     if(map->list[hashMod] == NULL)
     {
-        printf("Insert: str: %s hash:%lu mod:%lu \n", val, hashIndex, (hashIndex % map->capacity ));
-        map->list[hashMod] = ldh_KVPairCreate(val, "TESTVAL");
+        printf("Insert: str: %s hash:%lu mod:%lu \n", value, hashIndex, (hashIndex % map->capacity ));
+        map->list[hashMod] = ldh_KVPairCreate(value, "TESTVAL");
         map->size++;
         return true;
     }else
     {
-        printf("No insert possible for value \"%s\" at position %lu.\n", val, hashMod);
+        printf("No insert possible for value \"%s\" at position %lu.\n", value, hashMod);
         return false;
     }
 }
