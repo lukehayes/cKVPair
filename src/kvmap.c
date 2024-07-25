@@ -26,6 +26,8 @@ void ldh_KVMapDestroy(KVMap* map)
             ldh_KVPairDestroy(map->list[i]);
         }
     }
+
+    free(map->list);
     free(map);
 }
 
