@@ -12,7 +12,6 @@ typedef struct KVPair
     Str* key;
     Str* value;
 
-
 } KVPair;
 
 KVPair* ldh_KVPairCreate(char* key, char* value)
