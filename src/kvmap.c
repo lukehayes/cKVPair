@@ -78,7 +78,8 @@ void ldh_KVMapPrint(KVMap* map)
             printf(">| ...\n");
         }else 
         {
-            printf(">| %s\n", map->list[i]);
+            KVPair* p = map->list[i];
+            printf(">| %s | %s\n", p->key->text, p->value->text);
         }
     }
 }
