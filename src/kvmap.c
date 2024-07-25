@@ -15,9 +15,16 @@ KVMap* ldh_KVMapCreate(size_t capacity)
 
 void ldh_KVMapDestroy(KVMap* map)
 {
-    for(int i = 0; i<= map->capacity - 1; i++)
+    for(int i = 0; i <= map->capacity - 1; i++)
     {
-        ldh_KVPairDestroy(map->list[i]);
+        KVPair* p = map->list[i];
+
+        // Only delete p if is isn't NULL.
+        if(p)
+        {
+            printf("Destroying Pair key %s value %s \n", p->key->text, p->value->text );
+            ldh_KVPairDestroy(map->list[i]);
+        }
     }
     free(map);
 }
