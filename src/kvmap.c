@@ -51,7 +51,7 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
 
 KVPair* ldh_KVMapGetVal(KVMap* map, char* value)
 {
-    unsigned long hashMod = ldh_Hash((unsigned char*)value) % map->capacity;
+    unsigned long hashMod = ldh_Hash(value) % map->capacity;
     KVPair* hashValue = map->list[hashMod];
 
     if(hashValue != NULL && hashValue == value)
