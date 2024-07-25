@@ -28,6 +28,7 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
     {
         printf("Insert: str: %s hash:%lu mod:%lu \n", val, hashIndex, (hashIndex % map->capacity ));
         map->list[hashMod] = val;
+        map->size++;
         return true;
     }else
     {
@@ -36,8 +37,24 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
     }
 }
 
+const char* ldh_KVMapGetVal(KVMap* map, char* value)
+{
+    unsigned long hashMod = ldh_Hash((unsigned char*)value) % map->capacity;
+    char* hashValue = map->list[hashMod];
+
+    if(hashValue != NULL && hashValue == value)
+    {
+        return hashValue;
+    }else 
+    {
+        return "NULL";
+    }
+}
+
 void ldh_KVMapPrint(KVMap* map)
 {
+    printf("\n");
+    printf(">| Capacity: %lu Size:%lu\n", map->capacity, map->size);
     for(int i = 0; i <= map->capacity - 1; i++)
     {
         if(map->list[i] == NULL)

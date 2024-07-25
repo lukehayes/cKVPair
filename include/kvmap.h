@@ -39,6 +39,17 @@ void ldh_KVMapDestroy(KVMap* map);
 bool ldh_KVMapInsert(KVMap* map, char* val);
 
 /**
+ * Retrieve a value from the map.
+ *
+ * @param KVMap* map         The map to be inserted into.
+ * @param const char* val    The value to be get.
+ *
+ * @return bool    True is value was inserted, false otherwise.
+ */
+const char* ldh_KVMapGetVal(KVMap* map, char* value);
+
+
+/**
  * Pretty print a KVMap.
  *
  * @param KVMap* map         The map to be printed.
