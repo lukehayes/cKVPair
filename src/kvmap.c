@@ -55,7 +55,7 @@ KVPair* ldh_KVMapGetVal(KVMap* map, char* value)
     unsigned long hashMod = ldh_Hash(value) % map->capacity;
     KVPair* hashValue = map->list[hashMod];
 
-    if(hashValue != NULL && hashValue == value)
+    if(hashValue != NULL && *hashValue->key->text == *value)
     {
         return hashValue;
     }else 
