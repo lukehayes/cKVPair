@@ -9,13 +9,16 @@ KVMap* ldh_KVMapCreate(size_t capacity)
     map->capacity = capacity;
     map->size = 0;
 
-    map->list = malloc(sizeof(KVMap) * capacity);
+    map->list = malloc(sizeof(KVPair) * capacity);
     return map;
 }
 
 void ldh_KVMapDestroy(KVMap* map)
 {
-    free(map->list);
+    for(int i = 0; i<= map->capacity - 1; i++)
+    {
+        ldh_KVPairDestroy(map->list[i]);
+    }
     free(map);
 }
 
@@ -27,7 +30,7 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
     if(map->list[hashMod] == NULL)
     {
         printf("Insert: str: %s hash:%lu mod:%lu \n", val, hashIndex, (hashIndex % map->capacity ));
-        map->list[hashMod] = val;
+        map->list[hashMod] = ldh_KVPairCreate(val, "TESTVAL");
         map->size++;
         return true;
     }else
@@ -37,17 +40,17 @@ bool ldh_KVMapInsert(KVMap* map, char* val)
     }
 }
 
-const char* ldh_KVMapGetVal(KVMap* map, char* value)
+KVPair* ldh_KVMapGetVal(KVMap* map, char* value)
 {
     unsigned long hashMod = ldh_Hash((unsigned char*)value) % map->capacity;
-    char* hashValue = map->list[hashMod];
+    KVPair* hashValue = map->list[hashMod];
 
     if(hashValue != NULL && hashValue == value)
     {
         return hashValue;
     }else 
     {
-        return "NULL";
+        return NULL;
     }
 }
 

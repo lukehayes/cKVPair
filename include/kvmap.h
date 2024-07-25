@@ -5,8 +5,8 @@
 
 typedef struct KVMap
 {
-    //KVPair** list;
-    char** list;
+    KVPair** list;
+    //char** list;
     size_t capacity;
     size_t size;
 } KVMap;
@@ -46,7 +46,7 @@ bool ldh_KVMapInsert(KVMap* map, char* val);
  *
  * @return bool    True is value was inserted, false otherwise.
  */
-const char* ldh_KVMapGetVal(KVMap* map, char* value);
+KVPair* ldh_KVMapGetVal(KVMap* map, char* value);
 
 
 /**
