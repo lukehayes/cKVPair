@@ -22,7 +22,6 @@ void ldh_KVMapDestroy(KVMap* map)
         // Only delete p if is isn't NULL.
         if(p)
         {
-            printf("Destroying Pair key %s value %s \n", p->key->text, p->value->text );
             ldh_KVPairDestroy(map->list[i]);
         }
     }
@@ -34,7 +33,6 @@ void ldh_KVMapDestroy(KVMap* map)
 bool ldh_KVMapInsert(KVMap* map, char* value)
 {
     long hashIndex = ldh_Hash(value);
-    printf("Val: %s \n", value);
     size_t hashMod = hashIndex % map->capacity;
 
 
@@ -42,7 +40,6 @@ bool ldh_KVMapInsert(KVMap* map, char* value)
 
     if(map->list[hashMod] == NULL)
     {
-        printf("Insert: str: %s hash:%lu mod:%lu \n", value, hashIndex, (hashIndex % map->capacity ));
         map->list[hashMod] = ldh_KVPairCreate(value, "TESTVAL");
         map->size++;
         return true;
