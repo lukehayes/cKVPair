@@ -33,7 +33,7 @@ void ldh_KVMapDestroy(KVMap* map)
 
 bool ldh_KVMapInsert(KVMap* map, char* val)
 {
-    unsigned long hashIndex = ldh_Hash(val);
+    long hashIndex = ldh_Hash(value);
     size_t hashMod = hashIndex % map->capacity;
 
     if(map->list[hashMod] == NULL)
