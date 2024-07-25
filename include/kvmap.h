@@ -6,7 +6,6 @@
 typedef struct KVMap
 {
     KVPair** list;
-    //char** list;
     size_t capacity;
     size_t size;
 } KVMap;
@@ -61,9 +60,9 @@ void ldh_KVMapPrint(KVMap* map);
  *
  * @param unsigned char* str    The string to be hash.
  *
- * @return unsigned long        The hashed value.
+ * @return long        The hashed value.
  */
-unsigned long
-ldh_Hash(unsigned char *str);
+long
+ldh_Hash(char *str);
 
 #endif // !LDH_KVMAP_H
