@@ -71,6 +71,7 @@ void ldh_KVMapPrint(KVMap* map)
 {
     printf("\n");
     printf(">| Capacity: %lu Size:%lu\n", map->capacity, map->size);
+
     for(int i = 0; i <= map->capacity - 1; i++)
     {
         if(map->list[i] == NULL)
@@ -84,8 +85,8 @@ void ldh_KVMapPrint(KVMap* map)
     }
 }
 
-unsigned long
-ldh_Hash(unsigned char *str)
+long
+ldh_Hash(char *str)
 {
     unsigned long hash = 5381;
     int c;
