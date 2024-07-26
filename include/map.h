@@ -1,69 +1,69 @@
-#ifndef LDH_KVMAP_H
-#define LDH_KVMAP_H
+#ifndef LDH_MAP_H
+#define LDH_MAP_H
 
 #include "kvpair.h"
 
-typedef struct KVMap
+typedef struct Map
 {
     KVPair** list;
     size_t capacity;
     size_t size;
-} KVMap;
+} Map;
 
 
 /**
- * Create a KVMap instance.
+ * Create a Map instance.
  *
  * @param size_t capacity    The initial size of the map.
  *
- * @return KVMap*
+ * @return Map*
  */
-KVMap* ldh_KVMapCreate(size_t capacity);
+Map* ldh_MapCreate(size_t capacity);
 
 /**
- * Free the KVMap from memory.
+ * Free the Map from memory.
  *
- * @param KVMap* map    The pointer to be freed.
+ * @param Map* map    The pointer to be freed.
  */
-void ldh_KVMapDestroy(KVMap* map);
+void ldh_MapDestroy(Map* map);
 
 /**
  * Insert a value into the map.
  *
- * @param KVMap* map         The map to be inserted into.
+ * @param Map* map         The map to be inserted into.
  * @param const char* val    The value to be added.
  *
  * @return bool    True is value was inserted, false otherwise.
  */
-bool ldh_KVMapInsert(KVMap* map, char* val);
+bool ldh_MapInsert(Map* map, char* val);
 
 /**
  * Insert a value into the map.
  *
- * @param KVMap* map         The map to be inserted into.
+ * @param Map* map         The map to be inserted into.
  * @param const char* value    The value to be added.
  *
  * @return bool    True is value was inserted, false otherwise.
  */
-bool ldh_KVMapRemove(KVMap* map, char* value);
+bool ldh_MapRemove(Map* map, char* value);
 
 /**
  * Retrieve a value from the map.
  *
- * @param KVMap* map         The map to be inserted into.
+ * @param Map* map         The map to be inserted into.
  * @param const char* val    The value to be get.
  *
  * @return bool    True is value was inserted, false otherwise.
  */
-KVPair* ldh_KVMapGetVal(KVMap* map, char* value);
+KVPair* ldh_MapGetVal(Map* map, char* value);
 
 
 /**
- * Pretty print a KVMap.
+ * Pretty print a Map.
  *
- * @param KVMap* map         The map to be printed.
+ * @param Map* map         The map to be printed.
  */
-void ldh_KVMapPrint(KVMap* map);
+void ldh_MapPrint(Map* map);
 
 /**
  * A hashing function - all credit goes to: http://www.cse.yorku.ca/~oz/hash.html

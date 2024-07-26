@@ -10,7 +10,7 @@ set(INCLUDE_DIRS "include")
 set(BIN_NAME "KVPair")
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set(CMAKE_C_FLAGS  "-Wall -fno-strict-aliasing")
- 
+
 
 # -----------------------------------------------------------------------------
 # Set the project include directories.
@@ -29,8 +29,8 @@ add_executable(${BIN_NAME} main.c)
 # 
 set(cKVPairLib "cKVPair")
 
-add_library(${cKVPairLib} STATIC
-  "${SRC_DIR}/kvmap.c"
+add_library(${cKVPairLib} SHARED
+  "${SRC_DIR}/map.c"
 )
 
 # -----------------------------------------------------------------------------
