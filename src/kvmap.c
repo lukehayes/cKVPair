@@ -30,11 +30,29 @@ void ldh_KVMapDestroy(KVMap* map)
     free(map);
 }
 
-bool ldh_KVMapInsert(KVMap* map, char* value)
+bool ldh_KVMapRemove(KVMap* map, char* value)
 {
     long hashIndex = ldh_Hash(value);
     size_t hashMod = hashIndex % map->capacity;
 
+    KVPair* mapValue = map->list[hashMod];
+
+    if (mapValue)
+    {
+        /* *mapValue = NULL; */
+        map->size--;
+        ldh_KVPairDestroy(mapValue);
+        return true;
+    }else
+    {
+        return false;
+    }
+}
+
+bool ldh_KVMapInsert(KVMap* map, char* value)
+{
+    long hashIndex = ldh_Hash(value);
+    size_t hashMod = hashIndex % map->capacity;
 
     // TODO Need to find a way to deal with collisions.
 
