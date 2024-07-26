@@ -11,6 +11,15 @@ int main()
 
     KVPair* p = ldh_KVMapGetVal(map, "Am");
 
+    ldh_KVMapRemove(map, "I");
+    ldh_KVMapRemove(map, "Am");
+    ldh_KVMapRemove(map, "Excellent");
+
+    ldh_KVPairPrint(*p);
+
+
+    //ldh_KVPairPrint(*ldh_KVMapGetVal(map, "Excellent"));
+
     ldh_KVMapPrint(map);
 
     ldh_KVMapDestroy(map);
