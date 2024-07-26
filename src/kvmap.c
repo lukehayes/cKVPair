@@ -71,13 +71,14 @@ void ldh_KVMapPrint(KVMap* map)
 
     for(int i = 0; i <= map->capacity - 1; i++)
     {
-        if(map->list[i] == NULL)
+        KVPair* pair = map->list[i];
+
+        if(pair == NULL)
         {
             printf(">| ...\n");
         }else 
         {
-            KVPair* p = map->list[i];
-            printf(">| %s | %s\n", p->key->text, p->value->text);
+            printf(">| %s | %s\n", pair->key->text, pair->value->text);
         }
     }
 }
