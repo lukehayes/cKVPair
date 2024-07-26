@@ -7,10 +7,18 @@
 
 #define KV_BUFFER_SIZE 100
 
+typedef enum KVPairType {
+  STRING,
+  INT,
+  FLOAT
+
+} KVPairType;
+
 typedef struct KVPair
 {
     Str* key;
-    Str* value;
+    void* value;
+    KVPairType type;
 
 } KVPair;
 
@@ -23,12 +31,33 @@ typedef struct KVPair
  * @return KVPair* p   A new Key/Value pair.
  *
  **/
-KVPair* ldh_KVPairCreate(char* key, char* value)
+KVPair* ldh_KVPairCreate(char* key, void* value, KVPairType type)
 {
     KVPair* p = malloc(sizeof(KVPair));
 
     p->key   = ldh_StrCreate(key);
-    p->value = ldh_StrCreate(value);
+
+    switch (type)
+    {
+        case STRING:
+            p->value = malloc(sizeof(char) * 10);
+            p->value = (char*)value;
+            break;
+
+        case INT:
+            p->value = malloc(sizeof(int));
+            p->value = (int*)value;
+            break;
+
+        case FLOAT:
+            p->value = malloc(sizeof(float));
+            p->value = (float*)value;
+            break;
+    }
+
+
+    printf("p->value = %i\n", p->value);
+    p->type  = type;
 
     return p;
 }
@@ -40,7 +69,7 @@ KVPair* ldh_KVPairCreate(char* key, char* value)
  **/
 void ldh_KVPairPrint(KVPair p)
 {
-    printf("Pair - Key:%s Value:%s\n", p.key->text, p.value->text);
+    //printf("Pair - Key:%s Value:%s\n", p.key->text, p.value->text);
 }
 
 /**
@@ -51,7 +80,7 @@ void ldh_KVPairPrint(KVPair p)
 void ldh_KVPairDestroy(KVPair* pair)
 {
     ldh_StrDestroy(pair->key);
-    ldh_StrDestroy(pair->value);
+    //ldh_StrDestroy(pair->value);
     free(pair);
 }
 

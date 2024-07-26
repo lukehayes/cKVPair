@@ -1,28 +1,15 @@
 #include "kvpair.h"
-#include "kvmap.h"
+#include "map.h"
 
 int main()
 {
-    KVMap* map = ldh_KVMapCreate(10);
+    Map* map = ldh_MapCreate(2);
 
-    ldh_KVMapInsert(map, "I");
-    ldh_KVMapInsert(map, "Am");
-    ldh_KVMapInsert(map, "Excellent");
+    ldh_MapInsert(map, "health");
 
-    KVPair* p = ldh_KVMapGetVal(map, "Am");
+    ldh_MapPrint(map);
 
-    ldh_KVMapRemove(map, "I");
-    ldh_KVMapRemove(map, "Am");
-    ldh_KVMapRemove(map, "Excellent");
-
-    ldh_KVPairPrint(*p);
-
-
-    //ldh_KVPairPrint(*ldh_KVMapGetVal(map, "Excellent"));
-
-    ldh_KVMapPrint(map);
-
-    ldh_KVMapDestroy(map);
+    ldh_MapDestroy(map);
 
     return 0;
 }

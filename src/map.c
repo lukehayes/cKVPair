@@ -59,8 +59,11 @@ bool ldh_MapInsert(Map* map, char* value)
 
     if(map->list[hashMod] == NULL)
     {
-        map->list[hashMod] = ldh_KVPairCreate(value, "TESTVAL");
+        map->list[hashMod] = ldh_KVPairCreate(value, (int*)333, INT);
         map->size++;
+
+        printf("map->list[hashMod] = %lu \n", hashMod);
+
         return true;
     }else
     {
@@ -97,7 +100,21 @@ void ldh_MapPrint(Map* map)
             printf(">| ...\n");
         }else 
         {
-            printf(">| %s | %s\n", pair->key->text, pair->value->text);
+
+            switch (pair->type)
+            {
+                case STRING:
+                    printf(">| STRING %s | %s\n", pair->key->text, (char*)pair->value);
+                    break;
+
+                case INT:
+                    printf(">| INT %s | %lu\n", pair->key->text, (int*)pair->value);
+                    break;
+
+                case FLOAT:
+                    printf(">| FLOAT %s | %E \n", pair->key->text, (float*)pair->value);
+                    break;
+            }
         }
     }
 }
