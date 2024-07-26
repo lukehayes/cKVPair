@@ -24,6 +24,11 @@ KVPair* ldh_KVPairCreate(char* key, char* value)
     return p;
 }
 
+void ldh_KVPairPrint(KVPair p)
+{
+    printf("Pair - Key:%s Value:%s\n", p.key->text, p.value->text);
+}
+
 void ldh_KVPairDestroy(KVPair* pair)
 {
     ldh_StrDestroy(pair->key);
