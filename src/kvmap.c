@@ -1,4 +1,5 @@
 #include "kvmap.h"
+#include "kvpair.h"
 
 #include <stdio.h>
 #include <stdlib.h>
