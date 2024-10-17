@@ -1,6 +1,8 @@
 #include "str.h"
 #include "io.h"
 #include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
 bool IsNewLine(const char* c)
 {
@@ -31,7 +33,7 @@ int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
-    int bufSize = 30;
+    int bufSize = 31;
     int keyCounter = 0;
     char keyBuffer[bufSize];
 
@@ -39,45 +41,39 @@ int main()
     char valBuffer[bufSize];
 
     char* c = buffer->data;
-    int fileCounter = 0;
+    int charCount = 0;
     int lineCount = 0;
+    char* current = c;
+    char* lookAhead = c + 1;
+    char* charPtr;
 
-    PB(buffer->data);
-
-    printf("a Punct or Space? %i\n", NotPunctOrSpace("a"));
-    printf("= Punct or Space? %i\n", NotPunctOrSpace("="));
-    printf("space Punct or Space? %i\n", NotPunctOrSpace(" "));
-
-    while(*c != EOF)
+    while(charCount < strlen(buffer->data) - 1)
     {
-        char* currentChar = c;
-
-        // Get Key
-        while (isalpha(*currentChar) && NotPunctOrSpace(currentChar))
+        current = c;
+        lookAhead = c + 1;
+        bool parsing = true;
+        static int counter = 0;
+    
+        while(parsing)
         {
-            keyBuffer[keyCounter] = *currentChar;
-
+            keyBuffer[keyCounter] = *(lookAhead-1);
             keyCounter++;
-            currentChar++;
-        }
+            charPtr++;
 
-        c = currentChar;
-        keyCounter = 0;
+            if (ispunct(*lookAhead) || isspace(*lookAhead)) 
+            {
+                parsing = false;
+            }
 
-
-
-        // Get Value
-
-
-        // Count Lines
-        if(IsNewLine(c))
-        {
-            lineCount++;
-            printf("Reached EndLine \n");
+            lookAhead++;
         }
 
         c++;
+        charCount++;
     }
+    
+    printf("CHAR PTR %c", charPtr);
+    PB(keyBuffer);
 
     printf("Lines: %i \n", lineCount);
 
