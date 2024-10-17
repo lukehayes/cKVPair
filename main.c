@@ -29,55 +29,62 @@ bool NotPunctOrSpace(const char* c)
     return (!ispunct(*c) || !isspace(*c)) ? 1 : 0;
 }
 
+typedef struct Pair {
+    char* key;
+    char* value;
+} Pair;
+
+
 int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
-    int bufSize = 31;
-    int keyCounter = 0;
-    char keyBuffer[bufSize];
-
-    int valCounter = 0;
-    char valBuffer[bufSize];
-
-    char* c = buffer->data;
-    int charCount = 0;
+    int keyCounter = 1;
+    char* keyBuffer;
+    char* currentChar = buffer->data;
     int lineCount = 0;
-    char* current = c;
-    char* lookAhead = c + 1;
-    char* charPtr;
 
-    while(charCount < strlen(buffer->data) - 1)
+    Pair* p = malloc(sizeof(Pair));
+    p->key = malloc(sizeof(char) * keyCounter);
+    p->value = malloc(sizeof(char) * keyCounter);
+
+
+    while(*currentChar)
     {
-        current = c;
-        lookAhead = c + 1;
-        bool parsing = true;
-        static int counter = 0;
-    
-        while(parsing)
-        {
-            keyBuffer[keyCounter] = *(lookAhead-1);
+        char* nextChar = currentChar + 1;
+
+        if(isspace(*nextChar) || ispunct(*nextChar)) {
+            p->key[keyCounter] = *currentChar;
+            p->key[keyCounter + 1] = '\0';
+            break;
+        }else {
+            p->key = realloc(p->key, sizeof(char) * keyCounter + 1);
+            p->key[keyCounter] = *currentChar;
             keyCounter++;
-            charPtr++;
-
-            if (ispunct(*lookAhead) || isspace(*lookAhead)) 
-            {
-                parsing = false;
-            }
-
-            lookAhead++;
         }
 
-        c++;
-        charCount++;
+        while(!isalnum(*currentChar))
+        {
+            PC(currentChar);
+            currentChar++;
+        }
+
+        if (IsNewLine(currentChar)){
+            lineCount++;
+        }
+
+        currentChar++;
     }
-    
-    printf("CHAR PTR %c", charPtr);
-    PB(keyBuffer);
+
+
+    printf("K:%s V:%s \n", p->key, p->value);
 
     printf("Lines: %i \n", lineCount);
-
     DestroyBufferData(buffer);
+
+    free(p->key);
+    free(p->value);
+    free(p);
 
     return 0;
 }
