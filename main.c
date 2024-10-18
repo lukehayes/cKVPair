@@ -29,6 +29,20 @@ bool NotPunctOrSpace(const char* c)
     return (!ispunct(*c) || !isspace(*c)) ? 1 : 0;
 }
 
+
+char* NextValidChar(char* c)
+{
+    char* ptr = c;
+
+    while(!isalnum(ptr))
+    {
+        ptr++;
+    }
+
+    return ptr;
+}
+
+
 typedef struct Pair {
     char* key;
     char* value;
@@ -44,32 +58,32 @@ int main()
     char* currentChar = buffer->data;
     int lineCount = 0;
 
-    Pair* p = malloc(sizeof(Pair));
-    p->key = malloc(sizeof(char) * keyCounter);
+    Pair* p  = malloc(sizeof(Pair));
+    p->key   = malloc(sizeof(char) * keyCounter);
     p->value = malloc(sizeof(char) * keyCounter);
-
 
     while(*currentChar)
     {
-        char* nextChar = currentChar + 1;
+        char* ptr = currentChar;
+        static int memIndex = 1;
 
-        if(isspace(*nextChar) || ispunct(*nextChar)) {
-            p->key[keyCounter] = *currentChar;
-            p->key[keyCounter + 1] = '\0';
-            break;
-        }else {
-            p->key = realloc(p->key, sizeof(char) * keyCounter + 1);
-            p->key[keyCounter] = *currentChar;
-            keyCounter++;
+        if (isalpha(*ptr))  {
+
+            char* nextChar = ptr++;
+
+            p->key = realloc(p->key, sizeof(char) * memIndex);
+            p->key[memIndex] = *currentChar;
+
+            /*printf("Index %i %c\n", memIndex, p->key[memIndex] );*/
+            memIndex++;
+
+            if (!isalpha(*(ptr++))) {
+                p->key[memIndex+1] = '\0';
+            }
         }
 
-        while(!isalnum(*currentChar))
+        if (IsNewLine(currentChar)) 
         {
-            PC(currentChar);
-            currentChar++;
-        }
-
-        if (IsNewLine(currentChar)){
             lineCount++;
         }
 
