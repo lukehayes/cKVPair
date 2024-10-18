@@ -53,43 +53,44 @@ int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
+    int bufSize = 100;
     int keyCounter = 1;
     char* keyBuffer;
     char* currentChar = buffer->data;
     int lineCount = 0;
 
     Pair* p  = malloc(sizeof(Pair));
-    p->key   = malloc(sizeof(char) * keyCounter);
-    p->value = malloc(sizeof(char) * keyCounter);
+    p->key   = malloc(sizeof(char) * bufSize);
+    p->value = malloc(sizeof(char) * bufSize);
 
     while(*currentChar)
     {
         char* ptr = currentChar;
-        static int memIndex = 1;
+        static int memIndex = 0;
+        char buffer[bufSize];
 
         while(isalpha(*ptr))
         {
-            p->key = realloc(p->key, sizeof(char) * memIndex + 1);
             p->key[memIndex] = *ptr;
-
-            if (!isalpha(*(ptr++))) 
-            {
-                p->key[memIndex] = '\0';
-            }
-
-
+            ptr++;
             memIndex++;
+        }
+
+
+        while (!isalnum(*ptr))
+        {
+            PC(ptr);
             ptr++;
         }
 
-        ptr = currentChar;
+        currentChar = ptr;
+        memIndex = 0;
 
 
-        printf("%c \n", *ptr);
+        memset(buffer, 'x', bufSize);
 
 
-        if (IsNewLine(currentChar)) 
-        {
+        if (IsNewLine(currentChar)) {
             lineCount++;
         }
 
