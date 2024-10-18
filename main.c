@@ -67,20 +67,26 @@ int main()
         char* ptr = currentChar;
         static int memIndex = 1;
 
-        if (isalpha(*ptr))  {
+        while(isalpha(*ptr))
+        {
+            p->key = realloc(p->key, sizeof(char) * memIndex + 1);
+            p->key[memIndex] = *ptr;
 
-            char* nextChar = ptr++;
-
-            p->key = realloc(p->key, sizeof(char) * memIndex);
-            p->key[memIndex] = *currentChar;
-
-            /*printf("Index %i %c\n", memIndex, p->key[memIndex] );*/
-            memIndex++;
-
-            if (!isalpha(*(ptr++))) {
-                p->key[memIndex+1] = '\0';
+            if (!isalpha(*(ptr++))) 
+            {
+                p->key[memIndex] = '\0';
             }
+
+
+            memIndex++;
+            ptr++;
         }
+
+        ptr = currentChar;
+
+
+        printf("%c \n", *ptr);
+
 
         if (IsNewLine(currentChar)) 
         {
