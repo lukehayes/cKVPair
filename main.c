@@ -77,26 +77,36 @@ int main()
         static int memIndex = 0;
         char buffer[bufSize];
 
-        while(isalpha(*ptr))
+
+        if (isalpha(*ptr))
         {
-            p->key[memIndex] = *ptr;
-            ptr++;
-            memIndex++;
+            printf("Parsing key...\n");
+
+            // Key can only be alpha so no need to check for alpha nums
+            while(isalpha(*ptr))
+            {
+                buffer[memIndex] = *ptr;
+                memIndex++;
+                ptr++;
+
+                // Pointer already advanced so no need to ptr++ it.
+                // It checks the next value in the list.
+                if (isspace(*ptr))
+                {
+                    buffer[memIndex] = '\0';
+                    memcpy(p->key, buffer, sizeof(char) * memIndex);
+                    break;
+                }
+            }
+
+            currentChar = ptr;
         }
 
-
-        while (!isalnum(*ptr))
-        {
-            PC(ptr);
-            ptr++;
-        }
-
-        currentChar = ptr;
+        printf("Buffer %s\n", buffer);
+        ResetBuffer(buffer, memIndex);
         memIndex = 0;
 
-
-        memset(buffer, 'x', bufSize);
-
+        // Done finding key, now move onto value.
 
         if (IsNewLine(currentChar)) {
             lineCount++;
