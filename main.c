@@ -42,6 +42,14 @@ char* NextValidChar(char* c)
     return ptr;
 }
 
+void ResetBuffer(char* buffer, size_t size)
+{
+    for (int i = 0; i <= size -1 ; i++)
+    {
+        buffer[i] = 0;
+    }
+}
+
 
 typedef struct Pair {
     char* key;
