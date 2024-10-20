@@ -19,6 +19,11 @@ void PC(char* c)
     printf("Char: %c \n", *c);
 }
 
+void PI(int i)
+{
+    printf("Int: %i \n", i);
+}
+
 void PB(char* buf)
 {
     printf("Buf: %s \n", buf);
