@@ -74,7 +74,7 @@ int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
-    int bufSize = 100;
+    int bufSize = 20;
     int keyCounter = 1;
     char* keyBuffer;
     char* currentChar = buffer->data;
@@ -109,6 +109,10 @@ int main()
                 if (isspace(*ptr)) 
                 {
                     buffer[memIndex] = '\0';
+
+                    memset(p->key, '0', memIndex);
+                    p->key[memIndex] = '\0';
+
                     memcpy(p->key, buffer, sizeof(char) * memIndex);
                     break;
                 }
@@ -141,22 +145,25 @@ int main()
                 if (isspace(*ptr)) 
                 {
                     buffer[memIndex] = '\0';
+                    PI(memIndex);
+
+                    memset(p->value, '0', memIndex);
+                    p->value[memIndex] = '\0';
                     memcpy(p->value, buffer, sizeof(char) * memIndex);
                     break;
                 }
             }
+
             
             // Set the current char to 1 before the valid one.
             currentChar = ptr;
         }
 
-
         printf("NOW CURR CHAR to %c\n", *currentChar);
         printf("NOW  PTR to %c\n", *ptr );
 
 
-        // Done finding key, now move onto value.
-
+        // Reached end of line.
         if (IsNewLine(currentChar)) {
             lineCount++;
         }
@@ -166,6 +173,9 @@ int main()
 
 
     printf("K:%s V:%s \n", p->key, p->value);
+
+    int health = (int)p->value;
+    printf("Health %lu\n", (int)health);
 
     printf("Lines: %i \n", lineCount);
     DestroyBufferData(buffer);
