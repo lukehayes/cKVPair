@@ -29,6 +29,11 @@ bool NotPunctOrSpace(const char* c)
     return (!ispunct(*c) || !isspace(*c)) ? 1 : 0;
 }
 
+bool IsValidChar(const char* c)
+{
+    return (!ispunct(*c) || !isspace(*c)) ? 1 : 0;
+}
+
 
 char* NextValidChar(char* c)
 {
@@ -44,10 +49,13 @@ char* NextValidChar(char* c)
 
 void ResetBuffer(char* buffer, size_t size)
 {
-    for (int i = 0; i <= size -1 ; i++)
-    {
-        buffer[i] = 0;
-    }
+    printf("Reseting...\n");
+    memset(buffer, '0', size);
+
+    /*for (int i = 0; i <= size -1 ; i++)*/
+    /*{*/
+        /*buffer[i] = 0;*/
+    /*}*/
 }
 
 
@@ -78,12 +86,13 @@ int main()
         char buffer[bufSize];
 
 
-        if (isalpha(*ptr))
+        if (isalnum(*ptr))
         {
             printf("Parsing key...\n");
 
+            // Parse Key
             // Key can only be alpha so no need to check for alpha nums
-            while(isalpha(*ptr))
+            while(isalnum(*ptr))
             {
                 buffer[memIndex] = *ptr;
                 memIndex++;
@@ -91,7 +100,8 @@ int main()
 
                 // Pointer already advanced so no need to ptr++ it.
                 // It checks the next value in the list.
-                if (isspace(*ptr))
+                // So add the NULL char.
+                if (isspace(*ptr)) 
                 {
                     buffer[memIndex] = '\0';
                     memcpy(p->key, buffer, sizeof(char) * memIndex);
@@ -99,12 +109,46 @@ int main()
                 }
             }
 
+            while ( ispunct(*ptr) != 0 || isspace(*ptr) != 0) 
+            {
+                printf("Moving to next valid char... %c\n", *ptr);
+                ptr++;
+            }
+
+            printf("Setting current char to %c\n", *ptr);
+
+            ResetBuffer(buffer, bufSize);
+            memIndex = 0;
+
+
+            // Parse Value
+            printf("Parsing key...\n");
+
+            while(isalnum(*ptr))
+            {
+                buffer[memIndex] = *ptr;
+                memIndex++;
+                ptr++;
+
+                // Pointer already advanced so no need to ptr++ it.
+                // It checks the next value in the list.
+                // So add the NULL char.
+                if (isspace(*ptr)) 
+                {
+                    buffer[memIndex] = '\0';
+                    memcpy(p->value, buffer, sizeof(char) * memIndex);
+                    break;
+                }
+            }
+            
+            // Set the current char to 1 before the valid one.
             currentChar = ptr;
         }
 
-        printf("Buffer %s\n", buffer);
-        ResetBuffer(buffer, memIndex);
-        memIndex = 0;
+
+        printf("NOW CURR CHAR to %c\n", *currentChar);
+        printf("NOW  PTR to %c\n", *ptr );
+
 
         // Done finding key, now move onto value.
 
