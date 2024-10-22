@@ -1,8 +1,8 @@
 #include "str.h"
 #include "io.h"
 #include <ctype.h>
-#include <stdio.h>
 #include <string.h>
+#include "print.h"
 
 bool IsNewLine(const char* c)
 {
@@ -14,25 +14,6 @@ void NewLine()
     printf("\n");
 }
 
-void PC(char* c)
-{
-    printf("Char: %c \n", *c);
-}
-
-void PI(int i)
-{
-    printf("Int: %i \n", i);
-}
-
-void PB(char* buf)
-{
-    printf("Buf: %s \n", buf);
-}
-
-void PS(const char* s)
-{
-    printf("Str: %s\n", s);
-}
 
 bool IsValidChar(const char* c)
 {
@@ -109,7 +90,6 @@ void AdvancePtr(char* charPtr)
 {
 
 }
-
 
 typedef struct Pair {
     char key[30];
