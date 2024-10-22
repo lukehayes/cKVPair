@@ -86,9 +86,15 @@ char* ParseValue(char* c, char* property)
     return ptr;
 }
 
-void AdvancePtr(char* charPtr)
+char* AdvancePtr(char* charPtr)
 {
+    while ( ispunct(*charPtr) != 0 || isspace(*charPtr) != 0)
+    {
+        /*printf("Moving to next valid char... %c\n", *charPtr);*/
+        charPtr++;
+    }
 
+    return charPtr;
 }
 
 typedef struct Pair {
@@ -109,12 +115,8 @@ int main()
     {
         // Parse Key
         currentChar = ParseValue(currentChar, p.key);
-        while ( ispunct(*currentChar) != 0 || isspace(*currentChar) != 0) 
-        {
-            printf("Moving to next valid char... %c\n", *currentChar);
-            currentChar++;
-        }
 
+        currentChar = AdvancePtr(currentChar);
         // Parse Value
         currentChar = ParseValue(currentChar, p.value);
 
