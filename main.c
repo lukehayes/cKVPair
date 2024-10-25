@@ -35,7 +35,7 @@ char* NextValidChar(char* c)
 void ResetBuffer(char* buffer, size_t size)
 {
     memset(buffer, '0', size);
-    printf("Reset Buffer...\n");
+    /*printf("Reset Buffer...\n");*/
 }
 
 char* ParseValue(char* c, char* property)
@@ -62,21 +62,20 @@ char* ParseValue(char* c, char* property)
             // Increased memIndex by one to make space for NULL char.
             memIndex++;
 
-            buffer[memIndex] = '\0';
-            property[memIndex] = '\0';
+            buffer[memIndex - 1] = '\0';
+            property[memIndex - 1] = '\0';
             
             if (iscntrl(buffer[memIndex])) 
             {
                 memIndex--;
+                
                 memset(property, '0', memIndex);
-                memcpy(property, buffer, sizeof(char) * (memIndex));
+                memcpy(property, buffer, sizeof(char) * memIndex);
             }else 
             {
                 memset(property, '0', memIndex);
                 memcpy(property, buffer, sizeof(char) * memIndex);
             }
-
-
             break;
         }
     }
