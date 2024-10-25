@@ -4,6 +4,11 @@
 #include <string.h>
 #include "print.h"
 
+typedef struct Value {
+    void* value;
+    size_t length;
+} Value;
+
 bool IsNewLine(const char* c)
 {
     return *c == '\n';
@@ -38,7 +43,7 @@ void ResetBuffer(char* buffer, size_t size)
     /*printf("Reset Buffer...\n");*/
 }
 
-char* ParseValue(char* c, char* property)
+char* ParseValue(char* c, Value* property)
 {
 
     char* ptr = c;
@@ -63,18 +68,28 @@ char* ParseValue(char* c, char* property)
             memIndex++;
 
             buffer[memIndex - 1] = '\0';
-            property[memIndex - 1] = '\0';
+            /*property[memIndex - 1] = '\0';*/
+
             
             if (iscntrl(buffer[memIndex])) 
             {
                 memIndex--;
                 
-                memset(property, '0', memIndex);
-                memcpy(property, buffer, sizeof(char) * memIndex);
+                PS("Control");
+
+
+                property->value = malloc(sizeof(char) * memIndex);
+                memset(property->value, '0', memIndex);
+                memcpy(property->value, buffer, sizeof(char) * memIndex);
+                property->length = memIndex;
+                property->value[property->length] = '\0';
+                /*property.value = '\0';*/
+                /*property[memIndex - 1] = '\0';*/
+
             }else 
             {
-                memset(property, '0', memIndex);
-                memcpy(property, buffer, sizeof(char) * memIndex);
+                /*memset(property, '0', memIndex);*/
+                /*memcpy(property, buffer, sizeof(char) * memIndex);*/
             }
             break;
         }
@@ -96,10 +111,6 @@ char* AdvancePtr(char* charPtr)
     return charPtr;
 }
 
-typedef struct Pair {
-    char key[30];
-    char value[30];
-} Pair;
 
 
 int main()
@@ -108,22 +119,25 @@ int main()
 
     char* currentChar = buffer->data;
 
-    Pair p;
+    Value k;
+    Value v;
 
     while(*currentChar)
     {
         // Parse Key
-        currentChar = ParseValue(currentChar, p.key);
+        currentChar = ParseValue(currentChar, &k);
 
         currentChar = AdvancePtr(currentChar);
         // Parse Value
-        currentChar = ParseValue(currentChar, p.value);
+        /*currentChar = ParseValue(currentChar, p.value);*/
 
         currentChar++;
     }
 
 
-    printf("K:%s V:%s\n", p.key, p.value);
+    printf("K:%s V:%s\n", (char*)k.value, v.value);
+
+    free(k.value);
 
     DestroyBufferData(buffer);
 
