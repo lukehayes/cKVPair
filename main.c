@@ -1,21 +1,10 @@
 #include "str.h"
 #include "io.h"
 #include <ctype.h>
+#include <stdlib.h>
 #include <string.h>
 #include "print.h"
-
-typedef enum ValueType
-{
-    STRING,
-    INT
-
-} ValueType;
-
-typedef struct Value {
-    void* value;
-    size_t length;
-    ValueType type;
-} Value;
+#include "parser.h"
 
 bool IsNewLine(const char* c)
 {
@@ -92,6 +81,7 @@ void ParseValueType(Value* val, int memIndex, char* buffer)
         default:
     }
 }
+
 
 char* ParseValue(char* c, Value* property)
 {
