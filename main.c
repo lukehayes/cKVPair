@@ -4,9 +4,17 @@
 #include <string.h>
 #include "print.h"
 
+typedef enum ValueType
+{
+    STRING,
+    INT
+
+} ValueType;
+
 typedef struct Value {
     void* value;
     size_t length;
+    ValueType type;
 } Value;
 
 bool IsNewLine(const char* c)
@@ -62,32 +70,56 @@ char* ParseValue(char* c, Value* property)
         // Pointer already advanced so no need to ptr++ it.
         // It checks the next value in the list.
         // So add the NULL char.
-        if (isspace(*ptr)) 
+        if (isspace(*ptr))
         {
             // Increased memIndex by one to make space for NULL char.
             memIndex++;
 
             buffer[memIndex - 1] = '\0';
-            /*property[memIndex - 1] = '\0';*/
 
-            
-            if (iscntrl(buffer[memIndex])) 
+            if (iscntrl(buffer[memIndex]))
             {
                 memIndex--;
-                
+
                 PS("Control");
 
 
-                property->value = malloc(sizeof(char) * memIndex);
-                memset(property->value, '0', memIndex);
-                memcpy(property->value, buffer, sizeof(char) * memIndex);
-                property->length = memIndex;
-                property->value[property->length] = '\0';
-                /*property.value = '\0';*/
-                /*property[memIndex - 1] = '\0';*/
+                if (isalpha(*buffer))
+                {
+                    property->type = STRING;
+                }
 
-            }else 
-            {
+                if (isdigit(*buffer))
+                {
+                    property->type = INT;
+                }
+
+
+                switch (property->type) {
+                    case STRING:
+                        PS("Storing String");
+                        property->value = (char*)malloc(sizeof(char) * memIndex);
+                        memset(property->value, '0', memIndex);
+                        memcpy(property->value, buffer, sizeof(char) * memIndex);
+
+                        property->length = memIndex;
+                        char* p = (char*)property->value;
+
+                        p[property->length] = '\0';
+
+                        break;
+
+                    case INT:
+                        property->value = (int*)malloc(sizeof(int) * memIndex);
+                        memset(property->value, '0', memIndex);
+                        memcpy(property->value, buffer, sizeof(int) * memIndex);
+                        property->length = memIndex;
+                        break;
+                    default:
+                }
+
+            }else
+        {
                 /*memset(property, '0', memIndex);*/
                 /*memcpy(property, buffer, sizeof(char) * memIndex);*/
             }
@@ -111,8 +143,6 @@ char* AdvancePtr(char* charPtr)
     return charPtr;
 }
 
-
-
 int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
@@ -129,13 +159,14 @@ int main()
 
         currentChar = AdvancePtr(currentChar);
         // Parse Value
-        /*currentChar = ParseValue(currentChar, p.value);*/
+        currentChar = ParseValue(currentChar, &v);
+
 
         currentChar++;
     }
 
 
-    printf("K:%s V:%s\n", (char*)k.value, v.value);
+    printf("K:%s V:%s\n", k.value, v.value);
 
     free(k.value);
 
