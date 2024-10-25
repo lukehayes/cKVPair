@@ -51,6 +51,48 @@ void ResetBuffer(char* buffer, size_t size)
     /*printf("Reset Buffer...\n");*/
 }
 
+void ParseValueType(Value* val, int memIndex, char* buffer)
+{
+    if (isalpha(*buffer))
+    {
+        val->type = STRING;
+    }
+
+    if (isdigit(*buffer))
+    {
+        val->type = INT;
+    }
+
+
+    switch (val->type) {
+        case STRING:
+            val->value = (char*)malloc(sizeof(char) * memIndex);
+            memset(val->value, '0', memIndex);
+            memcpy(val->value, buffer, sizeof(char) * memIndex);
+
+            val->length = memIndex;
+            char* k = (char*)val->value;
+
+            k[val->length] = '\0';
+
+            break;
+
+        case INT:
+            PS("Storing Int");
+            val->value = (int*)malloc(sizeof(int) * memIndex);
+            memset(val->value, '0', memIndex);
+            memcpy(val->value, buffer, sizeof(int) * memIndex);
+
+            val->length = memIndex;
+            int* v = (int*)val->value;
+
+            v[val->length] = '\0';
+
+            break;
+        default:
+    }
+}
+
 char* ParseValue(char* c, Value* property)
 {
 
@@ -81,47 +123,11 @@ char* ParseValue(char* c, Value* property)
             {
                 memIndex--;
 
-                PS("Control");
-
-
-                if (isalpha(*buffer))
-                {
-                    property->type = STRING;
-                }
-
-                if (isdigit(*buffer))
-                {
-                    property->type = INT;
-                }
-
-
-                switch (property->type) {
-                    case STRING:
-                        PS("Storing String");
-                        property->value = (char*)malloc(sizeof(char) * memIndex);
-                        memset(property->value, '0', memIndex);
-                        memcpy(property->value, buffer, sizeof(char) * memIndex);
-
-                        property->length = memIndex;
-                        char* p = (char*)property->value;
-
-                        p[property->length] = '\0';
-
-                        break;
-
-                    case INT:
-                        property->value = (int*)malloc(sizeof(int) * memIndex);
-                        memset(property->value, '0', memIndex);
-                        memcpy(property->value, buffer, sizeof(int) * memIndex);
-                        property->length = memIndex;
-                        break;
-                    default:
-                }
+                ParseValueType(property, memIndex, buffer);
 
             }else
-        {
-                /*memset(property, '0', memIndex);*/
-                /*memcpy(property, buffer, sizeof(char) * memIndex);*/
+            {
+                ParseValueType(property, memIndex, buffer);
             }
             break;
         }
