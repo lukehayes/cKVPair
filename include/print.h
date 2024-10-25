@@ -35,4 +35,9 @@ void PS(const char* s)
     printf("Str: %s\n", s);
 }
 
+void PSI(const char* s, int i)
+{
+    printf("Str: %s Int: %i\n", s, i);
+}
+
 #endif
