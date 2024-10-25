@@ -30,8 +30,6 @@ int main()
         currentChar++;
     }
 
-
-
     /*printf("K:%s V:%s T:%lu\n", k.value, ((int*)v.value), atol(v.value) + 99 * 5 + 1);*/
 
     DestroyBufferData(buffer);

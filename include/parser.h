@@ -99,15 +99,13 @@ char* AdvancePtr(char* charPtr)
 }
 
 /**
-* Parse a string for key value pairs
+* Parse a string for key value pairs.
 *
 * @param char* c.
 * @param Value* val.
 */
-char* ParseValue(char* c, Value* val)
+char* ParseValue(char* ptr, Value* val)
 {
-    char* ptr = c;
-
     int bufSize = 10;
     char buffer[bufSize];
     int memIndex = 0;
@@ -119,6 +117,10 @@ char* ParseValue(char* c, Value* val)
         ptr++;
 
         // Pointer already advanced so no need to ptr++ it.
+        //
+        // If we have reached a space then we have moved past
+        // a valid value. Now we add the data parsed up
+        // until this point into a buffer.
         if (isspace(*ptr))
         {
             // Increased memIndex by one to make space for NULL char.
@@ -126,16 +128,8 @@ char* ParseValue(char* c, Value* val)
 
             buffer[memIndex - 1] = '\0';
 
-            if (iscntrl(buffer[memIndex]))
-            {
-                memIndex--;
+            ParseValueType(val, memIndex, buffer);
 
-                ParseValueType(val, memIndex, buffer);
-
-            }else
-            {
-                ParseValueType(val, memIndex, buffer);
-            }
             break;
         }
     }
