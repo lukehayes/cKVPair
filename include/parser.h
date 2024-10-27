@@ -21,17 +21,6 @@ typedef struct Value {
 
 
 /**
- * The parser uses an internal temporary buffer, this function resets it.
- *
- * @param char* buffer.
- * @param size_t size.
- */
-void ResetBuffer(char* buffer, size_t size)
-{
-    memset(buffer, '0', size);
-}
-
-/**
 * Parse the a single key or value from a string.
 *
 * @param Value* val.
@@ -40,6 +29,12 @@ void ResetBuffer(char* buffer, size_t size)
 */
 void ParseValueType(Value* val, int memIndex, char* buffer)
 {
+    // Increased memIndex by one to make space for NULL char.
+    //memIndex++;
+    //buffer[memIndex - 1] = '\0';
+    memIndex++;
+    val->length = memIndex;
+
     // Add basic type information about the value here.
     // The type can either be STRING or INT at the moment/
     if (isalpha(*buffer))
@@ -52,30 +47,19 @@ void ParseValueType(Value* val, int memIndex, char* buffer)
         val->type = INT;
     }
 
-
     // Allocate the space for the value here and add it to the buffer
     switch (val->type) {
         case STRING:
-            val->value = (char*)malloc(sizeof(char) * memIndex);
-            memset(val->value, '0', memIndex);
-            memcpy(val->value, buffer, sizeof(char) * memIndex);
-
-            val->length = memIndex;
-            char* k = (char*)val->value;
-
-            k[val->length] = '\0';
-
+            val->value = (char*)malloc(sizeof(char) * val->length);
+            memset(val->value, '\0', val->length);
+            memcpy(val->value, buffer, sizeof(char) * val->length-1);
             break;
 
         case INT:
-            val->value = (int*)malloc(sizeof(int) * memIndex);
-            memset(val->value, '0', memIndex);
-            memcpy(val->value, buffer, sizeof(int) * memIndex);
-
             val->length = memIndex;
-            int* v = (int*)val->value;
-
-            v[val->length] = '\0';
+            val->value = (int*)malloc(sizeof(int) * val->length);
+            memset(val->value, '\0', val->length);
+            memcpy(val->value, buffer, sizeof(int) * val->length-1);
 
             break;
         default:
@@ -106,9 +90,9 @@ char* AdvancePtr(char* charPtr)
 */
 char* ParseValue(char* ptr, Value* val)
 {
-    int bufSize = 10;
+    int  memIndex = 0;
+    int  bufSize  = 20;
     char buffer[bufSize];
-    int memIndex = 0;
 
     while(isalnum(*ptr))
     {
@@ -123,18 +107,12 @@ char* ParseValue(char* ptr, Value* val)
         // until this point into a buffer.
         if (isspace(*ptr))
         {
-            // Increased memIndex by one to make space for NULL char.
-            memIndex++;
-
-            buffer[memIndex - 1] = '\0';
-
             ParseValueType(val, memIndex, buffer);
-
             break;
         }
     }
 
-    ResetBuffer(buffer, memIndex);
+    //ResetBuffer(buffer, memIndex);
     return ptr;
 }
 

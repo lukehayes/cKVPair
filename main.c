@@ -1,17 +1,22 @@
-#include "str.h"
 #include "io.h"
-#include <ctype.h>
-#include <stdlib.h>
-#include "print.h"
 #include "parser.h"
-
-#define DerefTypedValk
 
 int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
     char* currentChar = buffer->data;
+
+    /**
+    * Example API
+    *
+    * Map map = MapCreate("data.txt");
+    *
+    * int n = MapGetValue("speed") -> should return an integer like 100
+    * bool MapHasValue("speed") -> check if a value exists inside the map
+    *
+    * MapDestroy(map); -> Destroy the map and all of its values.
+    */
 
     Value val[8];
 
@@ -24,13 +29,10 @@ int main()
         // Parse Value
         currentChar = ParseValue(currentChar, &val[1]);
 
-
-        printf("Key %s | Val %s \n", val[0].value, val[1].value);
+        printf("K:%s      V:%lu \n", (char*)val[0].value, atol(val[1].value));
 
         currentChar++;
     }
-
-    /*printf("K:%s V:%s T:%lu\n", k.value, ((int*)v.value), atol(v.value) + 99 * 5 + 1);*/
 
     DestroyBufferData(buffer);
 
