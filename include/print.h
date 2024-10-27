@@ -40,4 +40,14 @@ void PSI(const char* s, int i)
     printf("Str: %s Int: %i\n", s, i);
 }
 
+void PSS(const char* s, const char* ss)
+{
+    printf("Str: %s Str: %s\n", s, ss);
+}
+
+void PSC(const char* s, const char c)
+{
+    printf("Str: %s Char: %c\n", s, c);
+}
+
 #endif
