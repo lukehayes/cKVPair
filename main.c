@@ -1,11 +1,17 @@
 #include "io.h"
 #include "parser.h"
+#include "map.h"
+#include "str.h"
 
 int main()
 {
     BufferData* buffer = ReadFileIntoBuffer("data.txt");
 
     char* currentChar = buffer->data;
+
+    Map* map = MapCreate(3);
+
+    MapDestroy(map);
 
     /**
     * Example API
@@ -18,21 +24,24 @@ int main()
     * MapDestroy(map); -> Destroy the map and all of its values.
     */
 
-    Value val[8];
+    /*Value val[8];*/
 
-    while(*currentChar)
-    {
-        // Parse Key
-        currentChar = ParseValue(currentChar, &val[0]);
+    /*while(*currentChar)*/
+    /*{*/
+        /*// Parse Key*/
+        /*currentChar = ParseValue(currentChar, &val[0]);*/
 
-        currentChar = AdvancePtr(currentChar);
-        // Parse Value
-        currentChar = ParseValue(currentChar, &val[1]);
+        /*currentChar = AdvancePtr(currentChar);*/
+        /*// Parse Value*/
+        /*currentChar = ParseValue(currentChar, &val[1]);*/
 
-        printf("K:%s      V:%lu \n", (char*)val[0].value, atol(val[1].value));
+        /*printf("K:%s      V:%lu \n", (char*)val[0].value, atol(val[1].value));*/
 
-        currentChar++;
-    }
+        /*free(val[0].value);*/
+        /*free(val[1].value);*/
+
+        /*currentChar++;*/
+    /*}*/
 
     DestroyBufferData(buffer);
 
