@@ -17,9 +17,20 @@ typedef struct Map
     size_t size;
 } Map;
 
-
+/**
+ * Create a new instance of a Map.
+ *
+ * @param size_t intial_size.
+ *
+ * @return Map.
+ */
 Map* MapCreate(size_t initial_size);
 
+/**
+ * Destroy the Map and all of its data.
+ *
+ * @param Map* map.
+ */
 void MapDestroy(Map* map);
 
 /**
