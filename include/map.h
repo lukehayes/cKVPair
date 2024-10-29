@@ -30,6 +30,6 @@ void MapDestroy(Map* map);
  * @return long        The hashed value.
  */
 long
-ldh_Hash(char *str);
+MapHash(char *str);
 
 #endif // !LDH_KVMAP_H

@@ -19,7 +19,7 @@ void MapDestroy(Map* map)
 }
 
 long
-ldh_Hash(char *str)
+MapHash(char *str)
 {
     unsigned long hash = 5381;
     int c;
