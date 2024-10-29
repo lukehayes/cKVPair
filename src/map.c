@@ -12,10 +12,23 @@ Map* MapCreate(size_t initial_size)
     return map;
 }
 
+void MapInsert(Map* map, MapPair pair)
+{
+    MapPair* pairPtr = map->data;
+
+    map->data[map->size] = pair;
+    map->size++;
+
+    pairPtr = &pair;
+}
+
 void MapDestroy(Map* map)
 {
     free(map->data);
+    map->data = NULL;
+
     free(map);
+    map = NULL;
 }
 
 long

@@ -26,6 +26,11 @@ typedef struct Map
  */
 Map* MapCreate(size_t initial_size);
 
+
+void MapInsert(Map* map, MapPair pair);
+
+
+
 /**
  * Destroy the Map and all of its data.
  *
