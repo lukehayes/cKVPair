@@ -5,7 +5,7 @@ Map* MapCreate(size_t initial_size)
 {
     Map* map = malloc(sizeof(Map));
 
-    map->list     = malloc(sizeof(MapPair) * initial_size);
+    map->data     = malloc(sizeof(MapPair) * initial_size);
     map->capacity = initial_size;
     map->size     = 0;
 
@@ -14,13 +14,8 @@ Map* MapCreate(size_t initial_size)
 
 void MapDestroy(Map* map)
 {
-    for (int i = 0; i <= map->capacity - 1; ++i) 
-    {
-        MapPair* pair = map->list[i];
-        free(pair);
-    }
-
-    /*free(map);*/
+    free(map->data);
+    free(map);
 }
 
 long

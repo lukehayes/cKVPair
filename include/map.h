@@ -12,7 +12,7 @@ typedef struct MapPair
 
 typedef struct Map
 {
-    MapPair** list;
+    MapPair* data;
     size_t capacity;
     size_t size;
 } Map;
