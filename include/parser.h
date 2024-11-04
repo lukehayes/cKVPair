@@ -20,6 +20,22 @@ typedef struct Value {
 } Value;
 
 
+Value* ValueCreate(char* s)
+{
+    size_t length = strlen(s) + 1;
+    Value* v =  malloc(sizeof(Value) * length);
+
+    v->value = malloc(sizeof(char) * length);
+    strcpy(v->value, s);
+
+    v->length = length;
+    v->type   = STRING;
+
+    return v;
+}
+
+
+
 /**
 * Parse the a single key or value from a string.
 *

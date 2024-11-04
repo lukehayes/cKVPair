@@ -9,7 +9,27 @@ int main()
 
     char* currentChar = buffer->data;
 
-    Map* map = MapCreate(3);
+    Map* map = MapCreate(100);
+
+    MapPair p1;
+    p1.key.value   = ValueCreate("Hello");
+    p1.value.value = NULL;
+
+    printf("Value Pre Inserted: %s\n", (char*)p1.key.value);
+
+    /*MapPair p2;*/
+    /*p2.key.value   = ValueCreate("I am wealth");*/
+    /*p2.value.value = NULL;*/
+
+    /*MapInsert(map, p1);*/
+    /*MapInsert(map, p2);*/
+
+    /*MapPair* res = MapGet(map, "Hello");*/
+    /*res = MapGet(map, "abc");*/
+
+
+    /*free(p1.key.value);*/
+    /*free(p2.key.value);*/
 
     MapDestroy(map);
 

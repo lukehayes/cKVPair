@@ -29,6 +29,8 @@ Map* MapCreate(size_t initial_size);
 
 void MapInsert(Map* map, MapPair pair);
 
+MapPair* MapGet(Map* map, char* key);
+
 
 
 /**
