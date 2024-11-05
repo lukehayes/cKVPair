@@ -12,39 +12,42 @@ Map* MapCreate(size_t initial_size)
     return map;
 }
 
-void MapInsert(Map* map, MapPair pair)
+MapPair* MapCreateValue(const char* key, const char* val)
 {
-    MapPair* pairPtr = map->data;
+    MapPair* p = malloc(sizeof(MapPair));
+    p->key   = malloc(sizeof(char) * strlen(key) + 1);
+    strcpy(p->key, key);
 
-    printf("Value Inserted: %s\n", (char*)pair.key.value);
+    p->value   = malloc(sizeof(char) * strlen(val) + 1);
+    strcpy(p->value, val);
 
-    long hash = MapHash(pair.key.value);
+    return p;
+}
+
+void MapDestroyValue(MapPair* pair)
+{
+    free(pair->key);
+    free(pair->value);
+    free(pair);
+}
+
+void MapInsert(Map* map, MapPair* pair)
+{
+    long hash = MapHash(pair->key);
     int modHash = hash % map->capacity;
 
-    map->data[modHash] = pair;
+    map->data[modHash] = *pair;
     map->size++;
-
-   pairPtr = &pair;
 }
 
 MapPair* MapGet(Map* map, char* key)
 {
-    printf("Trying to find val %s\n", key);
-
     long hash = MapHash(key);
     int modHash = hash % map->capacity;
 
-    MapPair* pairs = &map->data[modHash];
+    MapPair* pair = &map->data[modHash];
 
-    if (pairs->key.value) {
-        /*printf("PTR %p --- Val %s\n", pairs, (char*)pairs->key.value);*/
-        printf("String: '%s' found.\n", key);
-    }else 
-    {
-        printf("String: '%s' Not found.\n", key);
-    }
-
-    return pairs;
+    return pair->key ? pair : NULL;
 }
 
 void MapDestroy(Map* map)

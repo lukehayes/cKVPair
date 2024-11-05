@@ -6,8 +6,8 @@
 
 typedef struct MapPair
 {
-    Value key;
-    Value value;
+    void* key;
+    void* value;
 } MapPair;
 
 typedef struct Map
@@ -26,8 +26,35 @@ typedef struct Map
  */
 Map* MapCreate(size_t initial_size);
 
+/**
+ * Create a single value to be inserted into the map.
+ *
+ * @param const char* key.
+ * @param const char* value.
+ *
+ * @return MapPair*.
+ */
+MapPair* MapCreateValue(const char* key, const char* val);
 
-void MapInsert(Map* map, MapPair pair);
+/**
+ * Destroy a MapPair value.
+ *
+ * @param MapPair* pair.
+ *
+ * @return void.
+ */
+void MapDestroyValue(MapPair* pair);
+
+
+/**
+ * Insert a new value into the map.
+ *
+ * @param Map* map,
+ * @param MapPair pair,
+ *
+ * @return void.
+ */
+void MapInsert(Map* map, MapPair* pair);
 
 MapPair* MapGet(Map* map, char* key);
 

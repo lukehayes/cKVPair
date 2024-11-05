@@ -22,8 +22,10 @@ typedef struct Value {
 
 Value* ValueCreate(char* s)
 {
+
+    printf("%s\n",s);
     size_t length = strlen(s) + 1;
-    Value* v =  malloc(sizeof(Value) * length);
+    Value* v =  malloc(sizeof(Value));
 
     v->value = malloc(sizeof(char) * length);
     strcpy(v->value, s);
