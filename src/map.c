@@ -1,5 +1,11 @@
 #include "map.h"
 
+static int MapHashPair(Map map, char* str)
+{
+    long hash = MapHash(str);
+    int modHash = hash % map.capacity;
+    return modHash;
+}
 
 Map* MapCreate(size_t initial_size)
 {
@@ -33,8 +39,11 @@ void MapDestroyValue(MapPair* pair)
 
 void MapInsert(Map* map, MapPair* pair)
 {
-    long hash = MapHash(pair->key);
-    int modHash = hash % map->capacity;
+    MapPair* pair = MapCreateValue(key, value);
+
+    int modHash = MapHashPair(*map, key);
+
+    printf("Mod Hash %i\n", modHash);
 
     map->data[modHash] = *pair;
     map->size++;
@@ -42,9 +51,7 @@ void MapInsert(Map* map, MapPair* pair)
 
 MapPair* MapGet(Map* map, char* key)
 {
-    long hash = MapHash(key);
-    int modHash = hash % map->capacity;
-
+    int modHash = MapHashPair(*map, key);
     MapPair* pair = &map->data[modHash];
 
     return pair->key ? pair : NULL;
