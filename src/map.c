@@ -37,7 +37,6 @@ void MapDestroyValue(MapPair* pair)
     free(pair);
 }
 
-void MapInsert(Map* map, MapPair* pair)
 void MapPrintValue(Map* map, char* key)
 {
     MapPair* pair = MapGet(map, key);
@@ -50,12 +49,12 @@ void MapPrintValue(Map* map, char* key)
     }
 }
 
+
+void MapInsert(Map* map, const char* key, const char* value)
 {
     MapPair* pair = MapCreateValue(key, value);
 
     int modHash = MapHashPair(*map, key);
-
-    printf("Mod Hash %i\n", modHash);
 
     map->data[modHash] = *pair;
     map->size++;
@@ -65,7 +64,6 @@ MapPair* MapGet(Map* map, char* key)
 {
     int modHash = MapHashPair(*map, key);
     MapPair* pair = &map->data[modHash];
-
     return pair->key ? pair : NULL;
 }
 
@@ -89,3 +87,4 @@ MapHash(char *str)
 
     return hash;
 }
+

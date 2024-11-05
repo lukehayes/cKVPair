@@ -50,12 +50,13 @@ void MapPrintValue(Map* map, char* key);
 /**
  * Insert a new value into the map.
  *
- * @param Map* map,
- * @param MapPair pair,
+ * @param Map* map.
+ * @param const char* key.
+ * @param const char* value.
  *
  * @return void.
  */
-void MapInsert(Map* map, MapPair* pair);
+void MapInsert(Map* map, const char* key, const char* value);
 
 MapPair* MapGet(Map* map, char* key);
 
