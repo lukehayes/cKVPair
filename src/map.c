@@ -38,6 +38,18 @@ void MapDestroyValue(MapPair* pair)
 }
 
 void MapInsert(Map* map, MapPair* pair)
+void MapPrintValue(Map* map, char* key)
+{
+    MapPair* pair = MapGet(map, key);
+
+    if (pair) {
+        printf("key[%s]: %s\n", key, (char*)pair->value);
+    }else
+    {
+        printf("key[%s]: NULL\n", key);
+    }
+}
+
 {
     MapPair* pair = MapCreateValue(key, value);
 

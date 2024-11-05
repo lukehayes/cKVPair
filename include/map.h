@@ -45,6 +45,7 @@ MapPair* MapCreateValue(const char* key, const char* val);
  */
 void MapDestroyValue(MapPair* pair);
 
+void MapPrintValue(Map* map, char* key);
 
 /**
  * Insert a new value into the map.
