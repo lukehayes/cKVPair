@@ -47,6 +47,8 @@ void MapDestroyValue(MapPair* pair);
 
 void MapPrintValue(Map* map, char* key);
 
+void MapPrintPair(Map* map, MapPair* pair);
+
 /**
  * Insert a new value into the map.
  *
