@@ -72,6 +72,24 @@ MapPair* MapInsert(Map* map, const char* key, const char* value)
 
 }
 
+void MapRemove(Map* map, const char* key)
+{
+    MapPair* pair = MapGet(map, key);
+
+    if (pair) {
+        /*printf("Value Found for key:%s -> %s\n", (char*)key, (char*)pair->value);*/
+
+        free(pair->key);
+        free(pair->value);
+
+        printf("Destroyed key:%s -> %s\n", (char*)key, (char*)pair->value);
+    }else
+    {
+        printf("Value Not Found for key:%s\n", (char*)key);
+    }
+
+}
+
 MapPair* MapGet(Map* map, char* key)
 {
     int modHash = MapHashPair(map, key);

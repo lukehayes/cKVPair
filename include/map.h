@@ -66,6 +66,15 @@ void MapPrintValue(Map* map, char* key);
 void MapPrintPair(Map* map, MapPair* pair);
 
 /**
+ * Print every entry of the map.
+ *
+ * @param Map* map.
+ *
+ * @return void.
+ */
+void MapPrint(Map* map);
+
+/**
  * Insert a new value into the map.
  *
  * @param Map* map.
