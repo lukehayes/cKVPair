@@ -9,19 +9,22 @@ int main()
 
     /*char* currentChar = buffer->data;*/
 
-    Map* map = MapCreate(1000);
+    Map* map = MapCreate(20);
 
     MapPair* p1 = MapInsert(map, "luck", "333");
     MapPair* p2 = MapInsert(map, "wealth", "so much wealth!");
+    MapPair* p3 = MapInsert(map, "abc", "letters");
 
-    /*MapPair* a = MapGet(map, "luck");*/
-    /*MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.*/
-    /*MapPair* c = MapGet(map, "wealth");*/
+    MapPair* a = MapGet(map, "luck");
+    MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.
+    MapPair* c = MapGet(map, "wealth");
 
-    MapPrintValue(map, "luck");
-    MapPrintValue(map, "abc");
-    MapPrintValue(map, "wealth");
-
+    /*MapPrintValue(map, "luck");*/
+    /*MapPrintValue(map, "abc");*/
+    /*MapPrintValue(map, "wealth");*/
+    MapPrintPair(map, a);
+    MapPrintPair(map, b);
+    MapPrintPair(map, c);
 
     MapDestroyValue(p1);
     MapDestroyValue(p2);
