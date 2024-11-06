@@ -2,6 +2,7 @@
 #include "parser.h"
 #include "map.h"
 #include "str.h"
+#include <stdio.h>
 
 int main()
 {
@@ -9,25 +10,18 @@ int main()
 
     /*char* currentChar = buffer->data;*/
 
-    Map* map = MapCreate(20);
+    Map* map = MapCreate(10);
 
     MapPair* p1 = MapInsert(map, "luck", "333");
-    MapPair* p2 = MapInsert(map, "wealth", "so much wealth!");
-    MapPair* p3 = MapInsert(map, "abc", "letters");
+    MapPair* p2 = MapInsert(map, "luke", "Deny. Choose. Be.");
 
     MapPair* a = MapGet(map, "luck");
     MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.
-    MapPair* c = MapGet(map, "wealth");
 
-    /*MapPrintValue(map, "luck");*/
-    /*MapPrintValue(map, "abc");*/
-    /*MapPrintValue(map, "wealth");*/
-    MapPrintPair(map, a);
-    MapPrintPair(map, b);
-    MapPrintPair(map, c);
+    MapPrint(map);
 
-    MapDestroyValue(p1);
-    MapDestroyValue(p2);
+    /*MapDestroyValue(p1);*/
+    /*MapDestroyValue(p2);*/
     MapDestroy(map);
 
 

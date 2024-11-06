@@ -86,6 +86,16 @@ void MapPrint(Map* map);
 MapPair* MapInsert(Map* map, const char* key, const char* value);
 
 /**
+ * Remove a value from the Map.
+ *
+ * @param Map* map.
+ * @param const char* key.
+ *
+ * @return MapPair*.
+ */
+void MapRemove(Map* map, const char* key);
+
+/**
  * Retrieve a value from the map.
  *
  * @param Map* map.

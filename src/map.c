@@ -34,8 +34,13 @@ MapPair* MapCreatePair(const char* key, const char* val)
 void MapDestroyValue(MapPair* pair)
 {
     free(pair->key);
+    pair->key = NULL;
+
     free(pair->value);
+    pair->value = NULL;
+
     free(pair);
+    pair= NULL;
 }
 
 void MapPrintValue(Map* map, char* key)
@@ -74,32 +79,62 @@ MapPair* MapInsert(Map* map, const char* key, const char* value)
 
 void MapRemove(Map* map, const char* key)
 {
-    MapPair* pair = MapGet(map, key);
+    /*MapPair* pair = MapGet(map, key);*/
+
+    int modHash = MapHashPair(map, key);
+    MapPair* pair = &map->data[modHash];
+
+    MapPrintPair(map, pair);
 
     if (pair) {
         /*printf("Value Found for key:%s -> %s\n", (char*)key, (char*)pair->value);*/
-
         free(pair->key);
+        /*pair->key = NULL;*/
         free(pair->value);
+        pair->value = NULL;
 
-        printf("Destroyed key:%s -> %s\n", (char*)key, (char*)pair->value);
-    }else
-    {
-        printf("Value Not Found for key:%s\n", (char*)key);
+        memset(pair, 0, sizeof(MapPair));
     }
 
 }
+
+void MapPrint(Map* map)
+{
+    for (int i = 0; i <= map->capacity -1; ++i)
+    {
+        MapPair* pair = &map->data[i];
+
+        if (pair)
+        {
+            printf("%i: %s -> %s\n", i, (char*)pair->key, (char*)pair->value);
+        }
+    }
+}
+
 
 MapPair* MapGet(Map* map, char* key)
 {
     int modHash = MapHashPair(map, key);
     MapPair* pair = &map->data[modHash];
 
-    return pair->key ? pair : NULL;
+    return pair;
 }
 
 void MapDestroy(Map* map)
 {
+    for (int i = 0; i <= map->capacity -1; ++i)
+    {
+        MapPair* pair = &map->data[i];
+
+        if(pair->key)
+        {
+            free(pair->key);
+            free(pair->value);
+        }
+        /*printf("%i: %s -> %s\n", i, (char*)pair->key, (char*)pair->value);*/
+    }
+
+
     free(map->data);
     map->data = NULL;
 
