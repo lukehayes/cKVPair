@@ -61,11 +61,11 @@ MapPair* MapInsert(Map* map, const char* key, const char* value)
 
     int modHash = MapHashPair(map, key);
 
-    MapPair* data = &map->data[modHash];
+    /*MapPair* data = &map->data[modHash];*/
 
-    memmove(data,pair, sizeof(MapPair));
+    /*memmove(data,pair, sizeof(MapPair));*/
 
-    /*map->data[modHash] = *data;*/
+    map->data[modHash] = *pair;
     map->size++;
 
     return pair;
@@ -76,10 +76,6 @@ MapPair* MapGet(Map* map, char* key)
 {
     int modHash = MapHashPair(map, key);
     MapPair* pair = &map->data[modHash];
-
-    /*printf("Data at modHash:%i,key %s\n", modHash, (char*)map->data[modHash].key);*/
-    /*printf("Data at modHash:%i, val %s\n", modHash, (char*)map->data[modHash].value);*/
-    /*printf("\n");*/
 
     return pair->key ? pair : NULL;
 }
