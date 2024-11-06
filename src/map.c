@@ -19,7 +19,7 @@ Map* MapCreate(size_t initial_size)
     return map;
 }
 
-MapPair* MapCreateValue(const char* key, const char* val)
+MapPair* MapCreatePair(const char* key, const char* val)
 {
     MapPair* p = malloc(sizeof(MapPair));
     p->key   = malloc(sizeof(char) * strlen(key) + 1);
@@ -57,7 +57,7 @@ void MapPrintPair(Map* map, MapPair* pair)
 
 MapPair* MapInsert(Map* map, const char* key, const char* value)
 {
-    MapPair* pair = MapCreateValue(key, value);
+    MapPair* pair = MapCreatePair(key, value);
 
     int modHash = MapHashPair(map, key);
 

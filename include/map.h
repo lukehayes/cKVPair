@@ -34,7 +34,7 @@ Map* MapCreate(size_t initial_size);
  *
  * @return MapPair*.
  */
-MapPair* MapCreateValue(const char* key, const char* val);
+MapPair* MapCreatePair(const char* key, const char* val);
 
 /**
  * Destroy a MapPair value.
