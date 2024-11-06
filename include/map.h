@@ -45,8 +45,24 @@ MapPair* MapCreateValue(const char* key, const char* val);
  */
 void MapDestroyValue(MapPair* pair);
 
+/**
+ * Print a value using a key.
+ *
+ * @param Map* map.
+ * @param char* key.
+ *
+ * @return void.
+ */
 void MapPrintValue(Map* map, char* key);
 
+/**
+ * Print a value using a MapPair.
+ *
+ * @param Map* map.
+ * @param MapPair* pair.
+ *
+ * @return void.
+ */
 void MapPrintPair(Map* map, MapPair* pair);
 
 /**
@@ -56,12 +72,19 @@ void MapPrintPair(Map* map, MapPair* pair);
  * @param const char* key.
  * @param const char* value.
  *
- * @return void.
+ * @return MapPair*.
  */
 MapPair* MapInsert(Map* map, const char* key, const char* value);
 
+/**
+ * Retrieve a value from the map.
+ *
+ * @param Map* map.
+ * @param const char* key.
+ *
+ * @return MapPair*.
+ */
 MapPair* MapGet(Map* map, char* key);
-
 
 
 /**
