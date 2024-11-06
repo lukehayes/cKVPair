@@ -1,9 +1,10 @@
 #include "map.h"
+#include <string.h>
 
-static int MapHashPair(Map map, char* str)
+static int MapHashPair(Map* map, char* str)
 {
     long hash = MapHash(str);
-    int modHash = hash % map.capacity;
+    int modHash = hash % map->capacity;
     return modHash;
 }
 
@@ -50,20 +51,36 @@ void MapPrintValue(Map* map, char* key)
 }
 
 
-void MapInsert(Map* map, const char* key, const char* value)
+MapPair* MapInsert(Map* map, const char* key, const char* value)
 {
     MapPair* pair = MapCreateValue(key, value);
 
-    int modHash = MapHashPair(*map, key);
+    int modHash = MapHashPair(map, key);
 
-    map->data[modHash] = *pair;
+    MapPair* data = &map->data[modHash];
+
+    printf("Insert ModHash %i\n", modHash);
+
+    memmove(data,pair, sizeof(MapPair));
+
+
+    /*map->data[modHash] = *data;*/
     map->size++;
+
+    return pair;
+
 }
 
 MapPair* MapGet(Map* map, char* key)
 {
-    int modHash = MapHashPair(*map, key);
+    int modHash = MapHashPair(map, key);
     MapPair* pair = &map->data[modHash];
+    printf("Get ModHash %i\n", modHash);
+
+    /*printf("Data at modHash:%i,key %s\n", modHash, (char*)map->data[modHash].key);*/
+    /*printf("Data at modHash:%i, val %s\n", modHash, (char*)map->data[modHash].value);*/
+    /*printf("\n");*/
+
     return pair->key ? pair : NULL;
 }
 

@@ -9,22 +9,18 @@ int main()
 
     /*char* currentChar = buffer->data;*/
 
-    Map* map = MapCreate(10);
+    Map* map = MapCreate(1000);
 
-    MapPair* p1 = MapCreateValue("luck", "100");
-    MapPair* p2 = MapCreateValue("wealth", "so much money!!!");
-    
-    MapInsert(map, p1);
-    MapInsert(map, p2);
+    MapPair* p1 = MapInsert(map, "luck", "333");
+    MapPair* p2 = MapInsert(map, "wealth", "so much wealth!");
 
-    MapPair* a = MapGet(map, "luck");
-    MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.
-    MapPair* c = MapGet(map, "wealth");
+    /*MapPair* a = MapGet(map, "luck");*/
+    /*MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.*/
+    /*MapPair* c = MapGet(map, "wealth");*/
 
-
-    printf("Val A %s\n", (char*)a->value);
-    /*printf("Val B %s\n", (char*)b->value);*/
-    printf("Val C %s\n", (char*)c->value);
+    MapPrintValue(map, "luck");
+    MapPrintValue(map, "abc");
+    MapPrintValue(map, "wealth");
 
 
     MapDestroyValue(p1);
@@ -46,7 +42,7 @@ int main()
     /*free(p1.key.value);*/
     /*free(p2.key.value);*/
 
-    MapDestroy(map);
+    /*MapDestroy(map);*/
 
     /**
     * Example API

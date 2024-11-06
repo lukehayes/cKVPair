@@ -56,7 +56,7 @@ void MapPrintValue(Map* map, char* key);
  *
  * @return void.
  */
-void MapInsert(Map* map, const char* key, const char* value);
+MapPair* MapInsert(Map* map, const char* key, const char* value);
 
 MapPair* MapGet(Map* map, char* key);
 
