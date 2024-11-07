@@ -41,6 +41,11 @@ void MapInsert(Map* map, char* key, char* value)
     map->size++;
 }
 
+void MapInsertPair(Map* map, MapPair* pair)
+{
+    MapInsert(map, pair->key, pair->value);
+}
+
 
 void MapRemove(Map* map, char* key)
 {

@@ -85,6 +85,25 @@ void MapPrint(Map* map);
 void MapInsert(Map* map, char* key, char* value);
 
 /**
+ * Insert a new value into the map using a MapPair.
+ *
+ * -----------------------------------------------
+ * Should be used inline like this:
+ *
+ *      MapInsertPair(
+ *          map,
+ *          &(MapPair){.key = "Key", .value = "Value"}
+ *      );
+ * -----------------------------------------------
+ *
+ * @param Map* map.
+ * @param MapPair* pair.
+ *
+ * @return MapPair*.
+ */
+void MapInsertPair(Map* map, MapPair* pair);
+
+/**
  * Remove a value from the Map.
  *
  * @param Map* map.
