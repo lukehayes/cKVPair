@@ -3,6 +3,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+typedef struct MapPair
+{
+    void* key;
+    void* value;
+} MapPair;
+
+typedef struct Map
+{
+    MapPair* data;
+    size_t capacity;
+    size_t size;
+} Map;
+
 static int MapHashPair(Map* map, char* str)
 {
     long hash = MapHash(str);
@@ -50,21 +64,24 @@ void MapInsertPair(Map* map, MapPair* pair)
 void MapRemove(Map* map, char* key)
 {
     // TODO This function does not work at all.
+    // TODO Do Not Use.
 
-    int modHash = MapHashPair(map, key);
-    MapPair* pair = &map->data[modHash];
+    printf("MapRemove() not implemented yet.\n");
 
-    MapPrintPair(map, pair);
+    /*int modHash = MapHashPair(map, key);*/
+    /*MapPair* pair = &map->data[modHash];*/
 
-    if (pair) {
-        /*printf("Value Found for key:%s -> %s\n", (char*)key, (char*)pair->value);*/
-        free(pair->key);
-        /*pair->key = NULL;*/
-        free(pair->value);
-        pair->value = NULL;
+    /*MapPrintPair(map, pair->key);*/
 
-        memset(pair, 0, sizeof(MapPair) + 1);
-    }
+    /*if (pair) {*/
+        /*[>printf("Value Found for key:%s -> %s\n", (char*)key, (char*)pair->value);<]*/
+        /*free(pair->key);*/
+        /*[>pair->key = NULL;<]*/
+        /*free(pair->value);*/
+        /*pair->value = NULL;*/
+
+        /*memset(pair, 0, sizeof(MapPair) + 1);*/
+    /*}*/
 }
 
 
@@ -104,7 +121,7 @@ void MapDestroyPair(MapPair* pair)
 }
 
 
-void MapPrintValue(Map* map, char* key)
+void MapPrintPair(Map* map, char* key)
 {
     MapPair* pair = MapGet(map, key);
 
@@ -116,11 +133,6 @@ void MapPrintValue(Map* map, char* key)
     }
 }
 
-
-void MapPrintPair(Map* map, MapPair* pair)
-{
-    MapPrintValue(map, pair->key);
-}
 
 
 void MapPrint(Map* map)

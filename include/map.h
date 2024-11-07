@@ -3,18 +3,9 @@
 
 #include <stddef.h>
 
-typedef struct MapPair
-{
-    void* key;
-    void* value;
-} MapPair;
+typedef struct Map Map;
 
-typedef struct Map
-{
-    MapPair* data;
-    size_t capacity;
-    size_t size;
-} Map;
+typedef struct MapPair MapPair;
 
 /**
  * Create a new instance of a Map.
@@ -52,17 +43,7 @@ void MapDestroyPair(MapPair* pair);
  *
  * @return void.
  */
-void MapPrintValue(Map* map, char* key);
-
-/**
- * Print a value using a MapPair.
- *
- * @param Map* map.
- * @param MapPair* pair.
- *
- * @return void.
- */
-void MapPrintPair(Map* map, MapPair* pair);
+void MapPrintPair(Map* map, char* key);
 
 /**
  * Print every entry of the map.
