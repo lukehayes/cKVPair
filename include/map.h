@@ -83,7 +83,7 @@ void MapPrint(Map* map);
  *
  * @return MapPair*.
  */
-MapPair* MapInsert(Map* map, const char* key, const char* value);
+void MapInsert(Map* map, char* key, char* value);
 
 /**
  * Remove a value from the Map.

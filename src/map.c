@@ -57,24 +57,19 @@ void MapPrintValue(Map* map, char* key)
 
 void MapPrintPair(Map* map, MapPair* pair)
 {
+    
+    /*printf("Value %s\n", (char*)pair->value);*/
     MapPrintValue(map, pair->key);
 }
 
-MapPair* MapInsert(Map* map, const char* key, const char* value)
+void MapInsert(Map* map, char* key, char* value)
 {
-    MapPair* pair = MapCreatePair(key, value);
-
     int modHash = MapHashPair(map, key);
 
-    /*MapPair* data = &map->data[modHash];*/
+    MapPair pair = {.key = (char*)key, .value = (char*)value};
+    memcpy(&map->data[modHash], &pair, sizeof(MapPair));
 
-    /*memmove(data,pair, sizeof(MapPair));*/
-
-    map->data[modHash] = *pair;
     map->size++;
-
-    return pair;
-
 }
 
 void MapRemove(Map* map, const char* key)
@@ -128,8 +123,8 @@ void MapDestroy(Map* map)
 
         if(pair->key)
         {
-            free(pair->key);
-            free(pair->value);
+            /*free(pair->key);*/
+            /*free(pair->value);*/
         }
         /*printf("%i: %s -> %s\n", i, (char*)pair->key, (char*)pair->value);*/
     }
