@@ -4,7 +4,6 @@
 #include <stddef.h>
 
 typedef struct Map Map;
-
 typedef struct MapPair MapPair;
 
 /**
@@ -12,28 +11,9 @@ typedef struct MapPair MapPair;
  *
  * @param size_t intial_size.
  *
- * @return Map.
+ * @return Map*.
  */
 Map* MapCreate(size_t initial_size);
-
-/**
- * Create a single value to be inserted into the map.
- *
- * @param const char* key.
- * @param const char* value.
- *
- * @return MapPair*.
- */
-MapPair* MapCreatePair(const char* key, const char* val);
-
-/**
- * Destroy a MapPair value.
- *
- * @param MapPair* pair.
- *
- * @return void.
- */
-void MapDestroyPair(MapPair* pair);
 
 /**
  * Print a value using a key.
@@ -45,6 +25,7 @@ void MapDestroyPair(MapPair* pair);
  */
 void MapPrintPair(Map* map, char* key);
 
+
 /**
  * Print every entry of the map.
  *
@@ -54,6 +35,7 @@ void MapPrintPair(Map* map, char* key);
  */
 void MapPrint(Map* map);
 
+
 /**
  * Insert a new value into the map.
  *
@@ -61,12 +43,13 @@ void MapPrint(Map* map);
  * @param const char* key.
  * @param const char* value.
  *
- * @return MapPair*.
+ * @return void.
  */
 void MapInsert(Map* map, char* key, char* value);
 
+
 /**
- * Insert a new value into the map using a MapPair.
+ * Insert a new value into the map using a MapPair reference inline:
  *
  * -----------------------------------------------
  * Should be used inline like this:
@@ -80,9 +63,10 @@ void MapInsert(Map* map, char* key, char* value);
  * @param Map* map.
  * @param MapPair* pair.
  *
- * @return MapPair*.
+ * @return void.
  */
 void MapInsertPair(Map* map, MapPair* pair);
+
 
 /**
  * Remove a value from the Map.
@@ -90,9 +74,10 @@ void MapInsertPair(Map* map, MapPair* pair);
  * @param Map* map.
  * @param const char* key.
  *
- * @return MapPair*.
+ * @return void.
  */
 void MapRemove(Map* map, char* key);
+
 
 /**
  * Retrieve a value from the map.
@@ -109,8 +94,11 @@ MapPair* MapGet(Map* map, char* key);
  * Destroy the Map and all of its data.
  *
  * @param Map* map.
+ *
+ * @return void.
  */
 void MapDestroy(Map* map);
+
 
 /**
  * A hashing function - all credit goes to: http://www.cse.yorku.ca/~oz/hash.html

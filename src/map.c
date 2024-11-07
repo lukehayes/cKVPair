@@ -108,19 +108,6 @@ MapPair* MapCreatePair(const char* key, const char* val)
 }
 
 
-void MapDestroyPair(MapPair* pair)
-{
-    free(pair->key);
-    pair->key = NULL;
-
-    free(pair->value);
-    pair->value = NULL;
-
-    free(pair);
-    pair= NULL;
-}
-
-
 void MapPrintPair(Map* map, char* key)
 {
     MapPair* pair = MapGet(map, key);
