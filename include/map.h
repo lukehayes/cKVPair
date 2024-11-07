@@ -43,7 +43,7 @@ MapPair* MapCreatePair(const char* key, const char* val);
  *
  * @return void.
  */
-void MapDestroyValue(MapPair* pair);
+void MapDestroyPair(MapPair* pair);
 
 /**
  * Print a value using a key.

@@ -31,7 +31,7 @@ MapPair* MapCreatePair(const char* key, const char* val)
     return p;
 }
 
-void MapDestroyValue(MapPair* pair)
+void MapDestroyPair(MapPair* pair)
 {
     free(pair->key);
     pair->key = NULL;
