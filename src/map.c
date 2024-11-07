@@ -1,5 +1,7 @@
 #include "map.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 static int MapHashPair(Map* map, char* str)
 {
@@ -19,48 +21,15 @@ Map* MapCreate(size_t initial_size)
     return map;
 }
 
-MapPair* MapCreatePair(const char* key, const char* val)
+
+MapPair* MapGet(Map* map, char* key)
 {
-    MapPair* p = malloc(sizeof(MapPair));
-    p->key   = malloc(sizeof(char) * strlen(key) + 1);
-    strcpy(p->key, key);
+    int modHash = MapHashPair(map, key);
+    MapPair* pair = &map->data[modHash];
 
-    p->value   = malloc(sizeof(char) * strlen(val) + 1);
-    strcpy(p->value, val);
-
-    return p;
+    return pair;
 }
 
-void MapDestroyPair(MapPair* pair)
-{
-    free(pair->key);
-    pair->key = NULL;
-
-    free(pair->value);
-    pair->value = NULL;
-
-    free(pair);
-    pair= NULL;
-}
-
-void MapPrintValue(Map* map, char* key)
-{
-    MapPair* pair = MapGet(map, key);
-
-    if (pair) {
-        printf("key[%s]: %s\n", key, (char*)pair->value);
-    }else
-    {
-        printf("key[%s]: NULL\n", key);
-    }
-}
-
-void MapPrintPair(Map* map, MapPair* pair)
-{
-    
-    /*printf("Value %s\n", (char*)pair->value);*/
-    MapPrintValue(map, pair->key);
-}
 
 void MapInsert(Map* map, char* key, char* value)
 {
@@ -72,9 +41,10 @@ void MapInsert(Map* map, char* key, char* value)
     map->size++;
 }
 
-void MapRemove(Map* map, const char* key)
+
+void MapRemove(Map* map, char* key)
 {
-    /*MapPair* pair = MapGet(map, key);*/
+    // TODO This function does not work at all.
 
     int modHash = MapHashPair(map, key);
     MapPair* pair = &map->data[modHash];
@@ -88,10 +58,65 @@ void MapRemove(Map* map, const char* key)
         free(pair->value);
         pair->value = NULL;
 
-        memset(pair, 0, sizeof(MapPair));
+        memset(pair, 0, sizeof(MapPair) + 1);
     }
-
 }
+
+
+void MapDestroy(Map* map)
+{
+    free(map->data);
+    map->data = NULL;
+
+    free(map);
+    map = NULL;
+}
+
+
+MapPair* MapCreatePair(const char* key, const char* val)
+{
+    MapPair* p = malloc(sizeof(MapPair));
+    p->key   = malloc(sizeof(char) * strlen(key) + 1);
+    strcpy(p->key, key);
+
+    p->value   = malloc(sizeof(char) * strlen(val) + 1);
+    strcpy(p->value, val);
+
+    return p;
+}
+
+
+void MapDestroyPair(MapPair* pair)
+{
+    free(pair->key);
+    pair->key = NULL;
+
+    free(pair->value);
+    pair->value = NULL;
+
+    free(pair);
+    pair= NULL;
+}
+
+
+void MapPrintValue(Map* map, char* key)
+{
+    MapPair* pair = MapGet(map, key);
+
+    if (pair) {
+        printf("key[%s]: %s\n", key, (char*)pair->value);
+    }else
+    {
+        printf("key[%s]: NULL\n", key);
+    }
+}
+
+
+void MapPrintPair(Map* map, MapPair* pair)
+{
+    MapPrintValue(map, pair->key);
+}
+
 
 void MapPrint(Map* map)
 {
@@ -107,35 +132,6 @@ void MapPrint(Map* map)
 }
 
 
-MapPair* MapGet(Map* map, char* key)
-{
-    int modHash = MapHashPair(map, key);
-    MapPair* pair = &map->data[modHash];
-
-    return pair;
-}
-
-void MapDestroy(Map* map)
-{
-    for (int i = 0; i <= map->capacity -1; ++i)
-    {
-        MapPair* pair = &map->data[i];
-
-        if(pair->key)
-        {
-            /*free(pair->key);*/
-            /*free(pair->value);*/
-        }
-        /*printf("%i: %s -> %s\n", i, (char*)pair->key, (char*)pair->value);*/
-    }
-
-
-    free(map->data);
-    map->data = NULL;
-
-    free(map);
-    map = NULL;
-}
 
 long
 MapHash(char *str)

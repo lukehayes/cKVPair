@@ -1,8 +1,7 @@
 #ifndef LDH_MAP_H
 #define LDH_MAP_H
 
-#include "kvpair.h"
-#include "parser.h"
+#include <stddef.h>
 
 typedef struct MapPair
 {
@@ -93,7 +92,7 @@ void MapInsert(Map* map, char* key, char* value);
  *
  * @return MapPair*.
  */
-void MapRemove(Map* map, const char* key);
+void MapRemove(Map* map, char* key);
 
 /**
  * Retrieve a value from the map.
