@@ -12,34 +12,13 @@ int main()
 
     Map* map = MapCreate(10);
 
-    MapPair* p1 = MapInsert(map, "luck", "333");
-    MapPair* p2 = MapInsert(map, "luke", "Deny. Choose. Be.");
-
-    MapPair* a = MapGet(map, "luck");
-    MapPair* b = MapGet(map, "abc"); // This is NULL so will segfault.
+    MapInsert(map, "luck", "333");
+    MapInsert(map, "luke", "Deny. Choose. Be.");
+    MapInsert(map, "Hello", "Moto");
 
     MapPrint(map);
 
-    /*MapDestroyValue(p1);*/
-    /*MapDestroyValue(p2);*/
     MapDestroy(map);
-
-
-    /*MapPair p2;*/
-    /*p2.key.value   = ValueCreate("I am wealth");*/
-    /*p2.value.value = NULL;*/
-
-    /*MapInsert(map, p1);*/
-    /*MapInsert(map, p2);*/
-
-    /*MapPair* res = MapGet(map, "Hello");*/
-    /*res = MapGet(map, "abc");*/
-
-
-    /*free(p1.key.value);*/
-    /*free(p2.key.value);*/
-
-    /*MapDestroy(map);*/
 
     /**
     * Example API
